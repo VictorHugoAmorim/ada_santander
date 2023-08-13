@@ -1,23 +1,26 @@
-# Menu da Farmácia (   )  
+# Menu da Farmácia ***( Nome da pessoa )*** `main.py`  
 
-## Cadastro de clientes ***( Victor Hugo )***  
+## Cadastro de clientes ***( Victor Hugo )*** `Cliente.py`  
 - Busca por CPF  
 - Adicionar, alterar e consultar cliente  
-- **Classe Cliente** (CPF, Nome, Data de Nascimento)  
+- **Classe Cliente** `CPF, Nome, Data_de_Nascimento`  
 
 ## Cadastro de medicamentos ***( Arthur )*** 
-- **Classe Medicamentos Quimioterápicos** (Nome, Principal composto, Laboratório, Descrição, Necessita receita)  
-- **Classe Medicamentos Fitoterápicos** (Nome, Principal composto, Laboratório, Descrição)  
-- **Classe Laboratório** (Nome, Endereço, Telefone, Cidade, Estado)   
+- **Classe Medicamentos Quimioterápicos** `medic_quimio.py`
+  - `Nome, Principal_composto, Laboratorio, Descricao, Necessita_receita, Valor_de_venda`
+- **Classe Medicamentos Fitoterápicos** `medic_fit.py`
+  - `Nome, Principal_composto, Laboratorio, Descricao, Valor_de_venda`  
+- **Classe Laboratório** laboratorio.py`
+  - `Nome, Endereco, Telefone, Cidade, Estado`   
 
-## Efetuar Vendas ***( Erick )***
-- Apenas para clientes cadastrados  
-- 20% de desconto para clientes idosos (acima de 65 anos)  
-- 10% de desconto nas compras acima de 150 reais
-- Se Quimioterápicos for do tipo controlado, exige receita, emite alerta perguntando se o atendente verificou
-- **Classe Vendas** (Data e hora da venda, Produtos vendidos, Cliente, Valor total)  
+## Efetuar Vendas ***( Erick )*** `vendas.py`
+- Apenas para clientes cadastrados -> `if Cliente.CPF or Cliente.Nome:`  
+- 20% de desconto para clientes idosos (acima de 65 anos)  `if Cliente.idade > 65:`  
+- 10% de desconto nas compras acima de 150 reais `... medic_quimio.Valor_de_venda ... medic_fit.Valor_de_venda `
+- Se Quimioterápicos for do tipo controlado, exige receita, emite alerta perguntando se o atendente verificou `if medic_quimio.Necessita_receita`
+- **Classe Vendas** `Data_e_hora_da_venda, Produtos_vendidos, Cliente, Valor_total`  
 
-## Emitir relatórios (   )
+## Emitir relatórios ***( Nome da pessoa )*** `nome_da_classe_do_emitir_relatoios.py` 
 - Listar clientes  
 - Listar medicamentos por ordem alfabética  
 - Listar medicamento quimio ou fito  
