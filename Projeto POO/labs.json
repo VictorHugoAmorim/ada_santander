@@ -1,0 +1,24 @@
+[
+    {
+      "Nome": "Pharmic Lab",
+      "Endereco": "Rua Oscar Freire, 123",
+      "Telefone": "(11) 1234-5678",
+      "Cidade": "São Paulo",
+      "Estado": "SP"
+    },
+    {
+      "Nome": "Laboratório Imafar",
+      "Endereco": "Avenida Rio Branco, 456",
+      "Telefone": "(21) 9876-5432",
+      "Cidade": "Rio de Janeiro",
+      "Estado": "RJ"
+    },
+    {
+      "Nome": "OficialFarma",
+      "Endereco": "Avenida Amazonas, 789",
+      "Telefone": "(31) 5555-1234",
+      "Cidade": "Belo Horizonte",
+      "Estado": "MG"
+    }
+  ]
+  

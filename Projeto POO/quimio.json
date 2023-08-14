@@ -1,0 +1,26 @@
+[
+    {
+      "Nome": "Carboplatina",
+      "Principal_composto": "Composto X",
+      "Laboratorio": "Pharmic Lab",
+      "Descricao": "Tratamento para câncer de pulmão",
+      "Necessita_receita": true,
+      "Valor_de_venda": 150.00
+    },
+    {
+      "Nome": "Imatinibe",
+      "Principal_composto": "Composto Y",
+      "Laboratorio": "Laboratório Imafar",
+      "Descricao": "Tratamento para leucemia",
+      "Necessita_receita": true,
+      "Valor_de_venda": 200.00
+    },
+    {
+      "Nome": "Doxorrubicina",
+      "Principal_composto": "Composto Z",
+      "Laboratorio": "OficialFarma",
+      "Descricao": "Tratamento para câncer de mama",
+      "Necessita_receita": false,
+      "Valor_de_venda": 120.00
+    }
+  ]
