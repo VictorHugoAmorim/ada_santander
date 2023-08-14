@@ -25,7 +25,7 @@
 - **Classe Medicamentos Fitoterápicos** `medic_fit.py`  
   - `Nome, Principal_composto, Laboratorio, Descricao, Valor_de_venda`  
   - Arquivo .json contendo um exemplo de cadastros  
-- **Classe Laboratório** laboratorio.py`  
+- **Classe Laboratório** `laboratorio.py`  
   - `Nome, Endereco, Telefone, Cidade, Estado`   
   - Arquivo .json contendo um exemplo de cadastros  
 
