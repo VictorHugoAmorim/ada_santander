@@ -1,0 +1,24 @@
+[
+    {
+      "Nome": "Valeriana",
+      "Principal_composto": "Erva-calma",
+      "Laboratorio": "Pharmic Lab",
+      "Descricao": "Auxilia no relaxamento e redução do estresse",
+      "Valor_de_venda": 29.90
+    },
+    {
+      "Nome": "Própolis Verde",
+      "Principal_composto": "Própolis",
+      "Laboratorio": "Laboratório Imafar",
+      "Descricao": "Fortalece o sistema imunológico e alivia sintomas de gripes",
+      "Valor_de_venda": 15.50
+    },
+    {
+      "Nome": "Fitotônico Matte",
+      "Principal_composto": "Erva-mate",
+      "Laboratorio": "OficialFarma",
+      "Descricao": "Aumenta a vitalidade e a energia do corpo",
+      "Valor_de_venda": 34.75
+    }
+  ]
+  
