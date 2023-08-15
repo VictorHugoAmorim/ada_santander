@@ -37,13 +37,12 @@
 - Arquivo .json contendo um exemplo de cadastros `cadastros_vendas = {}`
 - **Classe Vendas** `data_hora, produtos_vendidos, cliente, valor_total`  
 
-## Emitir relatórios ***( Nome da pessoa )*** `nome_da_classe_do_emitir_relatoios.py` 
+## Emitir relatórios ***( )*** `emitir_relatorios.py` 
 - Listar clientes  
-- Listar medicamentos por ordem alfabética  
-- Listar medicamento quimio ou fito  
+- Listar medicamentos por ordem alfabética  ***( Arthur )***
+- Listar medicamento quimio ou fito  ***( Arthur )***
 - Estatísticas dos atendimentos realizados no dia
-
-- Estoque (quantidade de medicamentos) 
+- Estoque (quantidade de medicamentos) (Opcional) ***( Arthur )***
 
 
 
