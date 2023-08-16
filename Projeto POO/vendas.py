@@ -73,17 +73,18 @@ class Vendas:
         """
         soma = lambda element , inicio = elemento + inicio
         return reduce(soma, carrinho[itens]['Preço']*carrinho[itens]['Qtd'] for itens in carrinho , 0)
-        pass
+        # falta testar
 
     def verifica_desconto( idade:int , total:float ) -> float:
         """
-        Entra com a idade e valor total da compra
-        Se idade do cliente acima de 65 anos
-            retorna 0.20
-        Se compra acima de 150
-            retorna 0.10
-        """
-        pass 
+        desconto = 0
+        if idade > 65:
+            desconto = 0.2
+        elif total>150:
+            desconto = 0.1
+        return desconto
+        """  
+        return 0.2 if idade > 65 else 0.1 if total > 150 else 0
 
     def fechamento_compra(cpf:int, carrinho:dict) -> None:
         """
