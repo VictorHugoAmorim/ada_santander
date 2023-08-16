@@ -71,9 +71,11 @@ class Vendas:
 
         retorna valor em float. # 120.90
         """
-        soma = lambda element , inicio = elemento + inicio
-        return reduce(soma, carrinho[itens]['Preço']*carrinho[itens]['Qtd'] for itens in carrinho , 0)
-        # falta testar
+        # carrinho = {'Remedio_A': {'Nome':'Remedio_A', 'Preço':100.00, 'Qtd':1} , 'Remedio_B': {'Nome':'Remedio_B', 'Preço':1.00, 'Qtd':3}  }
+        # print(calcula_total(carrinho))
+
+        soma = lambda element , inicio : element + inicio
+        return reduce(soma, (carrinho[itens]['Preço']*carrinho[itens]['Qtd'] for itens in carrinho) , 0)
 
     def verifica_desconto( idade:int , total:float ) -> float:
         """
