@@ -82,7 +82,7 @@ class Vendas:
             retorna 0.20
         Se compra acima de 150
             retorna 0.10
-        """
+        """ 
         pass 
 
     def fechamento_compra(cpf:int, carrinho:dict) -> None:
