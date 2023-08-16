@@ -1,7 +1,8 @@
-class MedicFit:
-    def __init__(self, nome: str, principal_composto: str, laboratorio: str, descricao: str, valor: float) -> None:
-        self.nome = nome
-        self.principal_composto = principal_composto
-        self.laboratorio = laboratorio
-        self.descricao = descricao
-        self.valor = valor
+from laboratorio import Laboratorio
+from medicamentos import Medicamentos
+class MedicFit(Medicamentos):
+    lista_fit = []
+
+    def __init__(self, nome: str, principal_composto: str, laboratorio: Laboratorio, descricao: str, valor: float) -> None:
+        super().__init__(nome, principal_composto, laboratorio, descricao, valor)
+        MedicFit.lista_fit.append(self)
