@@ -41,7 +41,7 @@
 - Listar clientes  
 - Listar medicamentos por ordem alfabética  ***( Arthur )***
 - Listar medicamento quimio ou fito  ***( Arthur )***
-- Estatísticas dos atendimentos realizados no dia
+- Estatísticas dos atendimentos realizados no dia ***( Erick )***
 - Estoque (quantidade de medicamentos) (Opcional) ***( Arthur )***
 
 
