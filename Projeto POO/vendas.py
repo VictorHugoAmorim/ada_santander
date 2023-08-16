@@ -59,7 +59,7 @@ class Vendas:
             
         saída esperada:
         {'Remedio_A': {'Nome':'Remedio_A', 'Preço':120.00, 'Qtd':1} ,
-         'Remedio_B': {'Nome':'Remedio_B', 'Preço':9.90, 'Qtd':3}  } 
+         'Remedio_B': {'Nome':'Remedio_B', 'Preço':9.90, 'Qtd':3}  }
         """
         pass
 
