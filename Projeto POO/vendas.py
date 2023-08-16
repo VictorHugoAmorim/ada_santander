@@ -1,4 +1,6 @@
 from datetime import datetime
+from functools import reduce
+
 class Vendas:
     def __init__(self) -> None:
         self.data_hora = datetime.now()
@@ -56,7 +58,8 @@ class Vendas:
         Atualiza o valor self.valor_total
             
         saída esperada:
-        [ 'Remedio A' , 'Remedio B' , 'Remedio  C' , 'Remedio B' ] , [ 10.00 , 26.50 , 9.90 , 26.50 ]
+        {'Remedio_A': {'Nome':'Remedio_A', 'Preço':120.00, 'Qtd':1} ,
+         'Remedio_B': {'Nome':'Remedio_B', 'Preço':9.90, 'Qtd':3}  }
         """
         pass
 
@@ -68,6 +71,8 @@ class Vendas:
 
         retorna valor em float. # 120.90
         """
+        soma = lambda element , inicio = elemento + inicio
+        return reduce(soma, carrinho[itens]['Preço']*carrinho[itens]['Qtd'] for itens in carrinho , 0)
         pass
 
     def verifica_desconto( idade:int , total:float ) -> float:
