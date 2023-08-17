@@ -1,3 +1,6 @@
+from medicamentos import Medicamentos
+from medic_fit import MedicFit
+from medic_quimio import MedicQuimio
 class Carrinho_de_vendas:
 
     def __init__(self):
@@ -31,9 +34,13 @@ class Carrinho_de_vendas:
                     print(self)
 
                 case '2':
-                    novo_remedio = Medicamentos()
-                    #localiza_remedio_por_input()
-                    #verifica_se_precisa_de_receita()
+                    lista_de_remedio = self.localiza_remedio_por_input() # retorna uma lista
+                    # remedio_selecionado = pega_um(lista_de_remedio) 
+                    # verifica_se_precisa_de_receita(remedio_selecionado)
+                    #   isinstance (remedio_selecionado, MedicQuimio)
+                    #        if remededio_selecionado.necessita_receita
+                    #        print("Verique se tem receita")
+                    #adiciono o remedio ao carrinho
                     pass
 
                 case '3':
@@ -63,8 +70,31 @@ class Carrinho_de_vendas:
         self._valor_total = reduce(soma, (self.carrinho[itens]['Preço']*self.carrinho[itens]['Qtd'] for itens in self.carrinho) , 0)
         return self._valor_total
 
-    def localiza_remedio_por_input(self):
-        # Input
+
+
+
+    def localiza_remedio_por_input(self,palavra_do_remedio:str="") -> Medicamentos:
+        if not palavra_do_remedio:
+            palavra_do_remedio =  input('Qual remedio está procurando?')
+        palavra_do_remedio = palavra_do_remedio.lower()
+        lista_remedios_por_nome = [ remedio for remedio in Medicamentos.lista_medicamentos if palavra_do_remedio in remedio.nome.lower()]
+        lista_remedios_por_principal_composto = [ remedio for remedio in Medicamentos.lista_medicamentos if palavra_do_remedio in remedio.principal_composto.lower()]
+        #lista_remedios_por_laboratorio = [ remedio for remedio in Medicamentos.lista_medicamentos if palavra_do_remedio in remedio.laboratorio.nome.lower()]
+        lista_remedios_por_descricao = [ remedio for remedio in Medicamentos.lista_medicamentos if palavra_do_remedio in remedio.descricao.lower()]
+
+        #lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto + lista_remedios_por_laboratorio + lista_remedios_por_descricao
+
+        lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto  + lista_remedios_por_descricao
+        dict_remedios={}
+        for e in lista_todos:
+            dict_remedios[e.nome] = e
+
+        return list(dict_remedios)
+
+
+
+
+
         # Se for um remedio Quimioterápicos, alerta para verificar se há receita
         # Se já existe no carrinho, apenas acrescentar + quantidade a ele
         pass
@@ -74,8 +104,13 @@ class Carrinho_de_vendas:
 
 teste = True
 if(teste):
-    #novo_carrinho = carrinho_de_vendas()
-    #novo_carrinho.carrinho = {'Remedio A': {'Preço':120.00, 'Qtd':1} ,
+    nc = Carrinho_de_vendas()
+    #nc.carrinho = {'Remedio A': {'Preço':120.00, 'Qtd':1} ,
     #                         'Remedio B': {'Preço':9.90, 'Qtd':3}  }
-    #print(novo_carrinho.valor_total)
-    print(Medicamentos.lista_medicamentos)
+    #print(nc.valor_total)
+    #print(Medicamentos.lista_medicamentos)
+    RemedioA=MedicFit('Coristina D',"abc",'aa','b c d e',5)
+    RemedioD=MedicQuimio('Coristina E',"abc",'aa','b c d e',5,True)
+    RemedioB=MedicFit('Coristina F',"abc",'aa','b c d e',50)
+    RemedioC=Medicamentos('Neosaldina',"novalgina",'aa','b c d e',15)
+    print(nc.localiza_remedio_por_input('Coristina'))
