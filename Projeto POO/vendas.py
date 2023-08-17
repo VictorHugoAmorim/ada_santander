@@ -1,54 +1,59 @@
 from datetime import datetime
 from functools import reduce
+from cadastra_cliente import Cadastro
 
 # por NWErickSasaki
-
-# teste
+# TODO adicionar get ou property em dados sensiveis
 class Vendas:
+
     def __init__(self) -> None:
         self.data_hora = datetime.now()
-        self.produtos_vendidos = {} # AKA carrinho { nome_do_medicamento_A : {'qtd':2 , 'valor':'9.90'} }
+        self.carrinho = {} # AKA carrinho { nome_do_medicamento_A : {'qtd':2 , 'valor':'9.90'} }
+        self.produtos_vendidos = {} # destinado para relatorio >> apenas nomes e qtds vendidas
         self.valor_total = 0.0
         self.cliente = {}
         return None
 
-    def iniciar_vendas() -> None:
-        # Verifica se o cliente é cadastrado
-        if not self.cliente:
-            self.cliente = verifica_cliente()
+    def iniciar_vendas(self) -> None:
 
+        cpf = self.encontrar_cpf_cadastrado()
+        
         # Inclui medicamento que o cliente quer comprar
-        self.produtos_vendidos = editar_carrinho()
+        self.produtos_vendidos = self.editar_carrinho()
 
         # Verifica quanto de desconto o cliente tem
-        self.valor_total = calcula_total( self.produtos_vendidos )
-        desconto:float = verifica_desconto( self.cliente['idade'] , sum( self.valores_produtos) ) 
+        self.valor_total = self.calcula_total( self.produtos_vendidos )
+        desconto:float = self.verifica_desconto( self.cliente['idade'] , sum( self.valores_produtos) ) 
 
         # Fecha compra com valor total
-        fechamento_compra( self.cliente[cpf], produtos_vendidos_de_compra )
+        self.fechamento_compra( self.cliente[cpf], self.produtos_vendidos_de_compra )
 
         # Volta ao menu principal da farmacia  
-        return
+        return None
 
+    def encontrar_cpf_cadastrado() -> str:
+        cliente = Cadastro('','','')
+        cpf = cliente.Cadastro.valida_identificador() # so inserir CPF valido
+        if cpf not in cliente.Cadastro.cadastros_clientes['identificador']:
+            opcao = input("""
+                  CPF não encontrado no sistema.
+                  Digite o número correspondente para: 
+                  1 - Buscar outro CPF
+                  2 - Cadastrar o novo cliente
+                  * - Sair
+                  """)
+            match opcao:
+                case '1':
+                    cpf = cliente.Cadastro.valida_identificador()
+                case '2':
+                    cliente.Cadastro.coleta_dados()
+                    cpf = cliente.Cadastro.cadastros_clientes['identificador']
+                case _:
+                    return None
+        return cpf
 
-    def verifica_cliente() -> dict:
+    def editar_carrinho() -> dict:
         """
-        Input de CPF ou Nome do cliente (e lista clientes que possuem esse mesmo nome digitado)
-        Se não for encontrado, alerta e dá a opção de cadastrar cliente
-        
-        Se encontrado retorna os dados do cliente em formato dict
-        exemplo: {'Nome':'Erick', 'Idade':28}
-        """
-        pass
-    
-    def editar_carrinho(carrinho:dict={}) -> dict:
-        """
-        Se chamar a função sem parâmetro,
-            cria um carrinho vazio
-
-        Se entrar na função já com parametros de entrada,
-            permite editar o carrinho existente
-
         O usuario pode, em relação ao carrinho:
             1 Visualizar
             2 Adicionar um novo item
@@ -101,3 +106,7 @@ class Vendas:
         e adiciona no arquivo .json 
         """
         pass
+
+# Teste
+
+Vendas.iniciar_vendas()
