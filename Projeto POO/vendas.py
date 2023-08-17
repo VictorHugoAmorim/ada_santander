@@ -1,6 +1,9 @@
 from datetime import datetime
 from functools import reduce
 
+# por NWErickSasaki
+
+# teste
 class Vendas:
     def __init__(self) -> None:
         self.data_hora = datetime.now()
@@ -24,7 +27,7 @@ class Vendas:
         # Fecha compra com valor total
         fechamento_compra( self.cliente[cpf], produtos_vendidos_de_compra )
 
-        # Volta ao menu principal da farmacia
+        # Volta ao menu principal da farmacia  
         return
 
 
@@ -38,7 +41,7 @@ class Vendas:
         """
         pass
     
-    def editar_carrinho(carrinho:dict) -> dict:
+    def editar_carrinho(carrinho:dict={}) -> dict:
         """
         Se chamar a função sem parâmetro,
             cria um carrinho vazio
@@ -58,8 +61,8 @@ class Vendas:
         Atualiza o valor self.valor_total
             
         saída esperada:
-        {'Remedio_A': {'Nome':'Remedio_A', 'Preço':120.00, 'Qtd':1} ,
-         'Remedio_B': {'Nome':'Remedio_B', 'Preço':9.90, 'Qtd':3}  }
+        {'Remedio_A': {'Preço':120.00, 'Qtd':1} ,
+         'Remedio_B': {'Preço':9.90, 'Qtd':3}  }
         """
         pass
 
@@ -71,22 +74,14 @@ class Vendas:
 
         retorna valor em float. # 120.90
         """
-        # carrinho = {'Remedio_A': {'Nome':'Remedio_A', 'Preço':100.00, 'Qtd':1} , 'Remedio_B': {'Nome':'Remedio_B', 'Preço':1.00, 'Qtd':3}  }
+        # carrinho = {'Remedio_A': {'Preço':100.00, 'Qtd':1} , 'Remedio_B': {'Preço':1.00, 'Qtd':3}  }
         # print(calcula_total(carrinho))
 
         soma = lambda element , inicio : element + inicio
         return reduce(soma, (carrinho[itens]['Preço']*carrinho[itens]['Qtd'] for itens in carrinho) , 0)
 
-    def verifica_desconto( idade:int , total:float ) -> float:
-        """
-        desconto = 0
-        if idade > 65:
-            desconto = 0.2
-        elif total>150:
-            desconto = 0.1
-        return desconto
-        """  
-        return 0.2 if idade > 65 else 0.1 if total > 150 else 0
+    def verifica_desconto( idade:int , total_da_compra:float ) -> float:
+        return 0.2 if idade > 65 else 0.1 if total_da_compra > 150 else 0
 
     def fechamento_compra(cpf:int, carrinho:dict) -> None:
         """
