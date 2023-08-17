@@ -6,7 +6,7 @@ cadastros_clientes = {
 }
 class Cadastro:
 
-    def __init__(self, identificador: str, nome: str, data_nascimento: str) -> None:
+    def __init__(self, identificador: str = '', nome: str = '', data_nascimento: str = '') -> None:
         self.identificador , self.nome, self.data_nascimento = self.coleta_dados()
 
     def coleta_dados(self):
