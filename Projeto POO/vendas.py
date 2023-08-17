@@ -19,14 +19,15 @@ class Vendas:
         cpf = self.encontrar_cpf_cadastrado()
         
         # Inclui medicamento que o cliente quer comprar
-        self.produtos_vendidos = self.editar_carrinho()
+        novo_carrinho = Carrinho_de_vendas()
+        novo_carrinho = self.editar_carrinho()
 
         # Verifica quanto de desconto o cliente tem
         self.valor_total = self.calcula_total( self.produtos_vendidos )
         desconto:float = self.verifica_desconto( self.cliente['idade'] , sum( self.valores_produtos) ) 
 
         # Fecha compra com valor total
-        self.fechamento_compra( self.cliente[cpf], self.produtos_vendidos_de_compra )
+        self.fechamento_compra( self.cliente[cpf], novo_carrinho )
 
         # Volta ao menu principal da farmacia  
         return None
@@ -55,7 +56,7 @@ class Vendas:
     def verifica_desconto( idade:int , total_da_compra:float ) -> float:
         return 0.2 if idade > 65 else 0.1 if total_da_compra > 150 else 0
 
-    def fechamento_compra(cpf:int, carrinho:dict) -> None: # TODO
+    def fechamento_compra(cpf:int, carrinho:Carrinho_de_vendas) -> None: # TODO
         """
         mostra a revisão do produtos_vendidos:
             mostra lista de medicamentos, valores unitários
