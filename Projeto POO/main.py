@@ -1,6 +1,6 @@
 from cadastra_cliente import *
 from cadastra_cliente import Cadastro
-
+import vendas
 
 def sys():
 
