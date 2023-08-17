@@ -16,5 +16,5 @@ class Medicamentos:
         representacao += '\nPrincipal composto: ' + self.principal_composto
         representacao += '\nLaboratório: ' + self.laboratorio
         representacao += '\nDescrição: ' + self.descricao
-        representacao += '\nValor: R$' + self.valor
+        representacao += '\nValor: R$' + str(self.valor)
         return representacao

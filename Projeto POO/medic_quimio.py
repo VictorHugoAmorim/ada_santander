@@ -13,6 +13,6 @@ class MedicQuimio(Medicamentos):
         representacao += '\nPrincipal composto: ' + self.principal_composto
         representacao += '\nLaboratório: ' + self.laboratorio
         representacao += '\nDescrição: ' + self.descricao
-        representacao += '\nValor: R$' + self.valor
+        representacao += '\nValor: R$' + str(self.valor)
         representacao += '\nNecessita de Receita: ' + self.necessita_receita
         return representacao
