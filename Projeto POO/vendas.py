@@ -4,7 +4,7 @@ from cadastra_cliente import Cadastro
 from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
 
-# por NWErickSasaki
+# by NWErickSasaki
 # TODO adicionar get ou property em dados sensiveis
 class Vendas:
 
