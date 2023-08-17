@@ -31,7 +31,7 @@ class Vendas:
         # Volta ao menu principal da farmacia  
         return None
 
-    def encontrar_cpf_cadastrado() -> str:
+    def encontrar_cpf_cadastrado(self) -> str:
         cliente = Cadastro('','','')
         cpf = cliente.Cadastro.valida_identificador() # so inserir CPF valido
         if cpf not in cliente.Cadastro.cadastros_clientes['identificador']:
@@ -52,38 +52,54 @@ class Vendas:
                     return None
         return cpf
 
-    def editar_carrinho() -> dict:
+    def editar_carrinho(self) -> dict:
+        opcao = ""
+        while not opcao == "0":
+            print('\n#'*30,'CARRINHO DE COMPRAS','#'*30)
+            opcao = input("""
+                    Digite o número correspondente para:
+                        
+                    1 Visualizar carrinho
+                    2 Adicionar um novo item
+                    3 Alterar quantidade de um item
+                    4 Retirar item do carrinho
+                    0 Finalizar venda
+                    """)
+            match opcao:
+                case '1':
+                    pass
+                    # visualiza carrinho
+                    """
+                    01 x Remedio A - R$ 120.00
+                    03 x Remedio B - R$ 9.90
+                    ----------------------------
+                    Total = R$ 149.70
+                    """
+                case '2':
+                    # Se for um remedio Quimioterápicos, alerta para verificar se há receita
+                    # Se já existe no carrinho, apenas acrescentar + quantidade a ele
+                    pass
+                case '3':
+                    pass
+                    # Se reduzir a zero, deleta do carrinho
+                case '4':
+                    pass
+                case '0':
+                    pass
+                case _:
+                    print(f"A opcao '{opcao}' é invalida!")
         """
-        O usuario pode, em relação ao carrinho:
-            1 Visualizar
-            2 Adicionar um novo item
-                Se for um remedio Quimioterápicos, alerta para verificar se há receita
-                Se já existe no carrinho, apenas acrescentar + quantidade a ele
-            3 Alterar quantidade de um item
-                Se reduzir a zero, deleta do carrinho
-            4 Retirar item do carrinho
-        
         Atualiza o valor self.valor_total
             
         saída esperada:
-        {'Remedio_A': {'Preço':120.00, 'Qtd':1} ,
-         'Remedio_B': {'Preço':9.90, 'Qtd':3}  }
+        {'Remedio A': {'Preço':120.00, 'Qtd':1} ,
+         'Remedio B': {'Preço':9.90, 'Qtd':3}  }
         """
         pass
 
-    def calcula_total(carrinho: dict) -> float:
-        """
-        Entra com o carrinho atual
-        calcula o valor total com base no
-        valor unitário * quantidade de item no carrinho
-
-        retorna valor em float. # 120.90
-        """
-        # carrinho = {'Remedio_A': {'Preço':100.00, 'Qtd':1} , 'Remedio_B': {'Preço':1.00, 'Qtd':3}  }
-        # print(calcula_total(carrinho))
-
+    def calcula_total(self) -> float:
         soma = lambda element , inicio : element + inicio
-        return reduce(soma, (carrinho[itens]['Preço']*carrinho[itens]['Qtd'] for itens in carrinho) , 0)
+        return reduce(soma, (self.carrinho[itens]['Preço']*self.carrinho[itens]['Qtd'] for itens in self.carrinho) , 0)
 
     def verifica_desconto( idade:int , total_da_compra:float ) -> float:
         return 0.2 if idade > 65 else 0.1 if total_da_compra > 150 else 0
@@ -107,6 +123,10 @@ class Vendas:
         """
         pass
 
-# Teste
+teste = True
+if(teste):
+    nova_venda = Vendas()
+    nova_venda.carrinho = {'Remedio A': {'Preço':120.00, 'Qtd':1} ,
+                        'Remedio B': {'Preço':9.90, 'Qtd':3}  }
 
-Vendas.iniciar_vendas()
+    print(nova_venda.calcula_total())
