@@ -1,5 +1,4 @@
 from datetime import datetime
-from functools import reduce
 from cadastra_cliente import Cadastro
 from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas

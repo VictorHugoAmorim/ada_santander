@@ -1,18 +1,21 @@
 from medicamentos import Medicamentos
 from medic_fit import MedicFit
 from medic_quimio import MedicQuimio
+from functools import reduce
 
 # by NWErickSasaki
 class Carrinho_de_vendas:
 
     def __init__(self):
-        self.carrinho = [] # [ [obj_Medicamento , 1 ] , [obj_Medicamento_A , 3 ] ]
+        self.carrinho = [[],[]] # [ [obj_Medicamento , obj_Medicamento_A ] , [ 1 , 3 ] ]
         _valor_total = 0
 
     def __repr__(self) -> str: # TODO
-        txt = "##### CARRINHO #####\n"
-        for idx,itens in enumerate(self.carrinho, start=1):
-            txt += f"{idx} - {itens[0].nome} x {str(itens[1])}\n"
+        txt =  "\n\n##### CARRINHO #####\n\n"
+        txt += "ID\tMEDICAMENTO\tQTD\tPREÇO\tSUB-TOTAL\n"
+        for idx,itens in enumerate(self.carrinho[0], start=1):
+            txt += f"{idx}\t{itens.nome}\t{str(self.carrinho[1][idx-1])}\tR$ {itens.valor:.2f}\tR$ {itens.valor*self.carrinho[1][idx-1]:.2f}   \n"
+        txt += f"\nTOTAL = R$ {self.valor_total:.2f}"
         return txt
 
     def editar_carrinho(self) -> dict:
@@ -29,10 +32,7 @@ class Carrinho_de_vendas:
                     Digite um numero: """)
             match opcao:
                 case '1':
-                    if self.carrinho:
-                        print(self)
-                    else:
-                        print('O carrinho está vazio.\n')
+                    print('O carrinho está vazio.\n')
 
                 case '2':
                     remedio_selecionado = self.localiza_remedio_por_input()
@@ -49,19 +49,22 @@ class Carrinho_de_vendas:
                     if not quantidade:
                         quantidade = self.define_quantidade_no_carrinho_do(remedio_selecionado)
 
-                    self.carrinho.append([remedio_selecionado,quantidade])
+                    self.carrinho[0].append(remedio_selecionado)
+                    self.carrinho[1].append(quantidade)
                     print(f'Adicionado: {quantidade} x {remedio_selecionado.nome}')
 
                 case '3':
-                    remedio_selecionado = self.localiza_remedio_por_input(onde=self.carrinho)
-                    self.define_quantidade_no_carrinho_do(remedio_selecionado)
+                    remedio_selecionado = self.localiza_remedio_por_input(onde=self.carrinho[0])
+                    nova_quantidade = self.define_quantidade_no_carrinho_do(remedio_selecionado)
+                    idx = self.carrinho[0].index(remedio_selecionado)
+                    self.carrinho[1][idx] = nova_quantidade
 
                 case '4':
-                    remedio_selecionado = self.localiza_remedio_por_input(onde=self.carrinho)
+                    remedio_selecionado = self.localiza_remedio_por_input(onde=self.carrinho[0])
                     self.retirar_do_carrinho(remedio_selecionado) 
 
                 case '0':
-                    pass
+                    return self.carrinho
 
                 case _:
                     print(f"A opcao '{opcao}' é invalida!")
@@ -94,7 +97,7 @@ class Carrinho_de_vendas:
     def medicamento_ja_no_carrinho(self, remedio_selecionado:Medicamentos) -> bool:
         if not self.carrinho:
             return False
-        if remedio_selecionado in self.carrinho[0]: ####### AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        if remedio_selecionado in self.carrinho[0]:
             return True
         return False
 
@@ -111,7 +114,8 @@ class Carrinho_de_vendas:
 
     def retirar_do_carrinho(self, remedio_selecionado:Medicamentos) -> Medicamentos:
         idx = self.carrinho[0].index(remedio_selecionado)
-        self.carrinho.pop(idx)
+        self.carrinho[0].pop(idx)
+        self.carrinho[1].pop(idx)
         return remedio_selecionado
 
 
@@ -119,11 +123,14 @@ class Carrinho_de_vendas:
 
     @property
     def valor_total(self) -> float:
+        nova_lista = [] # [rem,1],[rem_A,3]
+        for i in range (len(self.carrinho[0])):
+            nova_lista.append([self.carrinho[0][i],self.carrinho[1][i]])
+
         soma = lambda element , inicio : element + inicio
-        self._valor_total = reduce(soma, (self.carrinho[itens]['Preço']*self.carrinho[itens]['Qtd'] for itens in self.carrinho) , 0)
+        self._valor_total = reduce(soma, ( itens[0].valor * itens[1] for itens in nova_lista) , 0)        
+        #self._valor_total = reduce(soma, (self.carrinho[itens]['Preço']*self.carrinho[itens]['Qtd'] for itens in self.carrinho) , 0)
         return self._valor_total
-
-
 
     def localiza_remedio_por_input( self , palavra_do_remedio:str="" , onde:list=Medicamentos.lista_medicamentos ) -> Medicamentos:
         if not palavra_do_remedio:
