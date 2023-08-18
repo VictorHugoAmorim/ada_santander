@@ -8,7 +8,7 @@ class Carrinho_de_vendas:
 
     def __init__(self):
         self.carrinho = [[],[]] # [ [obj_Medicamento , obj_Medicamento_A ] , [ 1 , 3 ] ]
-        _valor_total = 0
+        self._valor_total = 0
 
     def __repr__(self) -> str: # TODO
         txt =  "\n\n##### CARRINHO #####\n\n"

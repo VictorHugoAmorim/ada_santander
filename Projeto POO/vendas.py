@@ -13,64 +13,58 @@ class Vendas:
         self.data_hora = datetime.now()
         self.produtos_vendidos:Carrinho_de_vendas
         self.valor_total:float
+        self.desconto:float = 0
         self.cliente:Cadastro
         return None
 
     def iniciar_vendas(self) -> None: # TODO
 
-        cpf = self.encontrar_cpf_cadastrado()
-        
-        # Inclui medicamento que o cliente quer comprar
-        novo_carrinho = Carrinho_de_vendas()
-        novo_carrinho = self.editar_carrinho()
-
-        # Verifica quanto de desconto o cliente tem
+        self.cliente = self.encontrar_cliente_por_cpf()
+        self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()
         self.valor_total = self.calcula_total( self.produtos_vendidos ) 
-
-        # Fecha compra com valor total
-        self.fechamento_compra( self.cliente, novo_carrinho )
-
-        # Volta ao menu principal da farmacia  
+        self.desconto = self.verifica_desconto( self.cliente['idade'] , self.produtos_vendidos.valor_total )
+        
+        self.fechamento_compra() 
         return None
 
-    def encontrar_cpf_cadastrado(self) -> str: # TODO
-        cliente = Cadastro('','','')
-        cpf = cliente.Cadastro.valida_identificador() # so inserir CPF valido
-        if cpf not in cliente.Cadastro.cadastros_clientes['identificador']:
+    def encontrar_cliente_por_cpf(self) -> Cadastro: # TODO
+
+        # cpf = input_de_CPF_valido() TODO
+
+        if cpf not in Cadastro.cadastros_clientes['identificador']:
             opcao = input("""
                   CPF não encontrado no sistema.
                   Digite o número correspondente para: 
                   1 - Buscar outro CPF
                   2 - Cadastrar o novo cliente
-                  * - Sair
                   """)
             match opcao:
                 case '1':
-                    cpf = cliente.Cadastro.valida_identificador()
+                    cpf = input_de_CPF_valido() TODO
                 case '2':
                     cliente.Cadastro.coleta_dados()
-                    cpf = cliente.Cadastro.cadastros_clientes['identificador']
                 case _:
-                    return None
-        return cpf
+                    pass
+        # return cliente_com_cpf(cpf) TODO
+
+    
 
     def verifica_desconto( idade:int , total_da_compra:float ) -> float:
         return 0.2 if idade > 65 else 0.1 if total_da_compra > 150 else 0
 
-    def fechamento_compra(cliente:Cadastro, carrinho:Carrinho_de_vendas) -> None: # TODO
+    def fechamento_compra() -> None: # TODO
         """
         Ao fechar adiciona a compra ao "banco de dados"
         em formato dict usando como chave o datetime
         e adiciona no arquivo .json 
         """
-        desconto:float = self.verifica_desconto( self.cliente['idade'] , sum( self.valores_produtos) )
-        self.valor_total = carrinho.valor_total-desconto
+        self.valor_total = self.produtos_vendidos.valor_total-desconto
         print(f"""
             ----- COMPRA CADASTRADA -----  
 
-            CLIENTE {cliente.nome}
+            CLIENTE {self.cliente.nome}
             CPF {cliente.identificador}
-            {carrinho}
+            {self.produtos_vendidos}
             DESCONTO/tR$ {desconto:.2f}
             TOTAL A PAGAR R$ {(valor_total):.2f}
             -----------------------------""")
