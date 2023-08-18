@@ -9,10 +9,10 @@ class MedicQuimio(Medicamentos):
         MedicQuimio.lista_quimio.append(self)
     
     def __repr__(self) -> str:
-        representacao = 'Nome: ' + self.nome
+        representacao = '\n\nNome: ' + self.nome
         representacao += '\nPrincipal composto: ' + self.principal_composto
-        representacao += '\nLaboratório: ' + self.laboratorio
+        representacao += '\nLaboratório: ' + str(self.laboratorio.nome)
         representacao += '\nDescrição: ' + self.descricao
         representacao += '\nValor: R$' + str(self.valor)
-        representacao += '\nNecessita de Receita: ' + ('sim' if self.necessita_receita else "nao") + '\n'
+        representacao += '\nNecessita de Receita: ' + ('sim' if self.necessita_receita else "nao")
         return representacao
