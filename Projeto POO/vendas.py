@@ -7,11 +7,13 @@ from carrinho_de_vendas import Carrinho_de_vendas
 # TODO adicionar get ou property em dados sensiveis
 class Vendas:
 
+    cadastro_vendas=[] # [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ]
+
     def __init__(self) -> None:
         self.data_hora = datetime.now()
-        self.produtos_vendidos = {} # destinado para relatorio >> apenas nomes e qtds vendidas
-        self.valor_total = 0.0
-        self.cliente = {}
+        self.produtos_vendidos:Carrinho_de_vendas
+        self.valor_total:float
+        self.cliente:Cadastro
         return None
 
     def iniciar_vendas(self) -> None: # TODO
@@ -23,11 +25,10 @@ class Vendas:
         novo_carrinho = self.editar_carrinho()
 
         # Verifica quanto de desconto o cliente tem
-        self.valor_total = self.calcula_total( self.produtos_vendidos )
-        desconto:float = self.verifica_desconto( self.cliente['idade'] , sum( self.valores_produtos) ) 
+        self.valor_total = self.calcula_total( self.produtos_vendidos ) 
 
         # Fecha compra com valor total
-        self.fechamento_compra( self.cliente[cpf], novo_carrinho )
+        self.fechamento_compra( self.cliente, novo_carrinho )
 
         # Volta ao menu principal da farmacia  
         return None
@@ -56,21 +57,22 @@ class Vendas:
     def verifica_desconto( idade:int , total_da_compra:float ) -> float:
         return 0.2 if idade > 65 else 0.1 if total_da_compra > 150 else 0
 
-    def fechamento_compra(cpf:int, carrinho:Carrinho_de_vendas) -> None: # TODO
+    def fechamento_compra(cliente:Cadastro, carrinho:Carrinho_de_vendas) -> None: # TODO
         """
-        mostra a revisão do produtos_vendidos:
-            mostra lista de medicamentos, valores unitários
-            mostra valor total (sem desconto)
-            mostra desconto
-            mostra valor a pagar
-            pergunta se esta tudo certo
-        permite editar o produtos_vendidos e recalcula:
-            o valor de desconto
-            o valor total
-            retorna a revisão:
-
-        ao fechar adiciona a compra ao "banco de dados"
+        Ao fechar adiciona a compra ao "banco de dados"
         em formato dict usando como chave o datetime
         e adiciona no arquivo .json 
         """
+        desconto:float = self.verifica_desconto( self.cliente['idade'] , sum( self.valores_produtos) )
+        self.valor_total = carrinho.valor_total-desconto
+        print(f"""
+            ----- COMPRA CADASTRADA -----  
+
+            CLIENTE {cliente.nome}
+            CPF {cliente.identificador}
+            {carrinho}
+            DESCONTO/tR$ {desconto:.2f}
+            TOTAL A PAGAR R$ {(valor_total):.2f}
+            -----------------------------""")
+
         pass

@@ -168,7 +168,7 @@ class Carrinho_de_vendas:
 
  # Teste ----------------------------------------------------------
 
-teste = True
+teste = False
 if(teste):
     nc = Carrinho_de_vendas()
     #print(nc.valor_total)
