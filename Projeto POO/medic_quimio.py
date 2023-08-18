@@ -14,5 +14,5 @@ class MedicQuimio(Medicamentos):
         representacao += '\nLaboratório: ' + self.laboratorio
         representacao += '\nDescrição: ' + self.descricao
         representacao += '\nValor: R$' + str(self.valor)
-        representacao += '\nNecessita de Receita: ' + self.necessita_receita
+        representacao += '\nNecessita de Receita: ' + ('sim' if self.necessita_receita else "nao") + '\n'
         return representacao
