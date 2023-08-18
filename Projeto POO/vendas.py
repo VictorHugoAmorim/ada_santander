@@ -40,9 +40,11 @@ class Vendas:
                   """)
             match opcao:
                 case '1':
-                    cpf = input_de_CPF_valido() TODO
+                    pass
+                    #cpf = input_de_CPF_valido() # TODO
                 case '2':
-                    cliente.Cadastro.coleta_dados()
+                    pass
+                    #cliente.Cadastro.coleta_dados()
                 case _:
                     pass
         # return cliente_com_cpf(cpf) TODO
