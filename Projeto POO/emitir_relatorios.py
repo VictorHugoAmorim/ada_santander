@@ -1,6 +1,7 @@
 from medicamentos import Medicamentos
 from medic_fit import MedicFit
 from medic_quimio import MedicQuimio
+from lendocsv import lendo_csv
 
 class Relatorio:
     def __init__(self) -> None:
@@ -17,4 +18,3 @@ class Relatorio:
 
     def listar_fito(self) -> str:
         return MedicFit.lista_fit.sort
-

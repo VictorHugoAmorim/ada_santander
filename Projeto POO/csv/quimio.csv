@@ -1,0 +1,4 @@
+nome,principal_composto,laboratorio,descricao,necessita_receita,valor
+Carboplatina,Composto X,Pharmic Lab,Tratamento para câncer de pulmão,true,150.00
+Imatinibe,Composto Y,Laboratório Imafar,Tratamento para leucemia,true,200.00
+Doxorrubicina,Composto Z,OficialFarma,Tratamento para câncer de mama,false,120.00

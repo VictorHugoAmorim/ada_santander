@@ -12,9 +12,9 @@ class Medicamentos:
         Medicamentos.lista_medicamentos.append(self)
     
     def __repr__(self) -> str:
-        representacao = '\nNome: ' + self.nome
+        representacao = '\n\nNome: ' + self.nome
         representacao += '\nPrincipal composto: ' + self.principal_composto
-        representacao += '\nLaboratório: ' + self.laboratorio
+        representacao += '\nLaboratório: ' + str(self.laboratorio.nome)
         representacao += '\nDescrição: ' + self.descricao
-        representacao += '\nValor: R$' + str(self.valor) + '\n'
+        representacao += '\nValor: R$' + str(self.valor)
         return representacao
