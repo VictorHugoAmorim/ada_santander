@@ -11,18 +11,16 @@ def sys():
     lendo_csv()
     while True:
         print('1- Cadastrar cliente\n2- Alterar cadastro de cliente\n3- Consultar clientes cadastrados',sep='')
-        print('4- Cadastrar medicamento\n5- Alterar cadastro de medicamento\n6- Consultar todos os medicamentos cadastrados')
-        print('7- Consultar medicamentos quimioterápicos\n8- Consultar medicamentos fitoterápicos\n0- Sair')
+        print('4- Cadastrar medicamento\n5- Alterar cadastro de medicamento\n6- Consultar medicamentos cadastrados\n0- Sair')
         user_choice = input('Por favor, escolha o número da ação desejada:\n ')
         if user_choice == '0':
             print("Encerrando o programa...")
             break
-        elif user_choice in ['1','2','3','4','5','6','7','8']:    
+        elif user_choice in ['1','2','3','4','5','6','0']:    
             #Case 1
             if user_choice == '1':
                 cadastro = Cadastro('','','')
                 cadastros_clientes = cadastro.armazena_dados()
-            
             elif user_choice == '2':
                 try:
                     cadastro.altera_cliente(cadastros_clientes)
@@ -33,27 +31,34 @@ def sys():
                     cadastro.exibe_clientes(cadastros_clientes)
                 except:
                     print('Impossivel, nenhum cadastro encontrado!\n')
-            elif user_choice == '4':
+            elif user_choice == '4': # Cadastrar medicamento
                 try:
-                    pass
+                    print('1 - Cadastrar medicamento fitoterápico\n2 - Cadastrar medicamento quimioterápico')
+                    user_choice_medic = input('Por favor, escolha o número da ação desejada:\n ')
+                    if user_choice_medic =='1':
+                        pass
+                    elif user_choice_medic =='2':
+                        pass
+                    else:
+                        print("Opção inexistente")
                 except:
                     print('Impossivel, nenhum cadastro encontrado!\n')
 
-            elif user_choice == '6': #Listar todos os medicamentos em ordem alfabética
+            elif user_choice == '6': #Listar medicamentos cadastrados
                 try:
-                    print(sorted(Medicamentos.lista_medicamentos, key=lambda med:med.nome))
+                    print('1 - Listar todos os medicamentos cadastrados\n2 - Listar medicamentos fitoterápicos cadastrados\n3 - Listar medicamentos quimioterápicos cadastrados')
+                    user_choice_listamedic = input('Por favor, escolha o número da ação desejada:\n ')
+                    if user_choice_listamedic =='1':
+                        print(sorted(Medicamentos.lista_medicamentos, key=lambda med:med.nome))
+                    elif user_choice_listamedic =='2':
+                        print(sorted(MedicFit.lista_fit, key=lambda med:med.nome))
+                    elif user_choice_listamedic =='3':
+                        print(sorted(MedicQuimio.lista_quimio, key=lambda med:med.nome))
+                    else:
+                        print("Opção inexistente")
                 except:
                     print('Impossivel, nenhum cadastro encontrado!\n')
-            elif user_choice == '7': #Listar quimioterápicos
-                try:
-                    print(sorted(MedicQuimio.lista_quimio, key=lambda med:med.nome))
-                except:
-                    print('Impossivel, nenhum cadastro encontrado!\n')
-            elif user_choice == '8': #Listar fitoterápicos
-                try:
-                    print(sorted(MedicFit.lista_fit, key=lambda med:med.nome))
-                except:
-                    print('Impossivel, nenhum cadastro encontrado!\n')
+            
             #Continuar a partir daqui
         
 
