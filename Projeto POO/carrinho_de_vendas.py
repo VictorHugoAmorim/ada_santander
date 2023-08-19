@@ -6,9 +6,9 @@ from functools import reduce
 # by NWErickSasaki
 class Carrinho_de_vendas:
 
-    def __init__(self):
-        self.carrinho = [[],[]] # [ [obj_Medicamento , obj_Medicamento_A ] , [ 1 , 3 ] ]
-        self._valor_total = 0
+    def __init__(self, carrinho:list=[[],[]]):
+        self.carrinho = carrinho # [ [obj_Medicamento , obj_Medicamento_A ] , [ 1 , 3 ] ]
+        self._valor_total = self.valor_total
 
     def __repr__(self) -> str: # TODO
         txt =  "\n\n##### CARRINHO #####\n\n"
@@ -123,13 +123,12 @@ class Carrinho_de_vendas:
 
     @property
     def valor_total(self) -> float:
-        nova_lista = [] # [rem,1],[rem_A,3]
+        nova_lista_em_duplas = [] # [rem,1],[rem_A,3]
         for i in range (len(self.carrinho[0])):
-            nova_lista.append([self.carrinho[0][i],self.carrinho[1][i]])
+            nova_lista_em_duplas.append([self.carrinho[0][i],self.carrinho[1][i]])
 
         soma = lambda element , inicio : element + inicio
-        self._valor_total = reduce(soma, ( itens[0].valor * itens[1] for itens in nova_lista) , 0)        
-        #self._valor_total = reduce(soma, (self.carrinho[itens]['Preço']*self.carrinho[itens]['Qtd'] for itens in self.carrinho) , 0)
+        self._valor_total = reduce(soma, ( itens[0].valor * itens[1] for itens in nova_lista_em_duplas) , 0)
         return self._valor_total
 
     def localiza_remedio_por_input( self , palavra_do_remedio:str="" , onde:list=Medicamentos.lista_medicamentos ) -> Medicamentos:
@@ -139,10 +138,10 @@ class Carrinho_de_vendas:
         lista_remedios_por_nome = [ remedio for remedio in onde if palavra_do_remedio in remedio.nome.lower()]
         lista_remedios_por_principal_composto = [ remedio for remedio in onde if palavra_do_remedio in remedio.principal_composto.lower()]
         lista_remedios_por_descricao = [ remedio for remedio in onde if palavra_do_remedio in remedio.descricao.lower()]
-        #lista_remedios_por_laboratorio = [ remedio for remedio in onde if palavra_do_remedio in remedio.laboratorio.nome.lower()]
+        lista_remedios_por_laboratorio = [ remedio for remedio in onde if palavra_do_remedio in remedio.laboratorio.nome.lower()]
         
-        #lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto + lista_remedios_por_laboratorio + lista_remedios_por_descricao
-        lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto  + lista_remedios_por_descricao
+        lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto + lista_remedios_por_laboratorio + lista_remedios_por_descricao
+        #lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto  + lista_remedios_por_descricao
         
         dict_remedios={}
         for e in lista_todos:
