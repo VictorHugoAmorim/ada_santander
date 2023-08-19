@@ -4,7 +4,7 @@ from medicamentos import *
 from medic_quimio import *
 from medic_fit import *
 from laboratorio import *
-from vendas import *
+# from vendas import *
 from lendocsv import lendo_csv
 import time
 
@@ -32,26 +32,26 @@ def sys():
                 try:
                     cadastro_instance.altera_cliente(cadastros_clientes)
                 except:
-                    print('Impossivel, nenhum cadastro encontrado!\n')
+                    print('Impossível, nenhum cadastro encontrado!\n')
             #Exibir clientes        
             elif user_choice == '3': 
                 try:
                     cadastro_instance.exibe_clientes(cadastros_clientes)
                 except:
-                    print('Impossivel, nenhum cadastro encontrado!\n')
+                    print('Impossível, nenhum cadastro encontrado!\n')
             #Cadastrar medicamento       
             elif user_choice == '4': 
                 try:
                     print('1 - Cadastrar medicamento fitoterápico\n2 - Cadastrar medicamento quimioterápico')
                     user_choice_medic = input('Por favor, escolha o número da ação desejada:\n ')
-                    if user_choice_medic =='1':
-                        pass
+                    if user_choice_medic == '1':
+                        MedicFit.cadastrar_medic_fit()
                     elif user_choice_medic =='2':
-                        pass
+                        MedicQuimio.cadastrar_medic_quimio()
                     else:
                         print("Opção inexistente")
                 except:
-                    print('Impossivel, nenhum cadastro encontrado!\n')
+                    print('Erro no cadastro do medicamento!\n')
             #Listar medicamentos cadastrados
             elif user_choice == '6': 
                 try:

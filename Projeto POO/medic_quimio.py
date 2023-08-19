@@ -17,7 +17,8 @@ class MedicQuimio(Medicamentos):
         representacao += '\nNecessita de Receita: ' + ('sim' if self.necessita_receita else "nao")
         return representacao
     
-    def cadastrar_medic_quimio(self) -> str:
+    @staticmethod
+    def cadastrar_medic_quimio():
         nome = input("Nome do medicamento: ")
         principal_composto = input("Principal composto: ")
         laboratorio = input("Laboratório: ")
@@ -44,5 +45,5 @@ class MedicQuimio(Medicamentos):
             valor=valor,
             necessita_receita=receita
         )
-
+        
         print("Medicamento quimioterápico cadastrado com sucesso!")

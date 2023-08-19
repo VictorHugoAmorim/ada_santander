@@ -17,7 +17,8 @@ class Laboratorio:
         representacao += '\nEstado: R$' + self.estado + '\n'
         return representacao
     
-    def verifica_laboratorio(self, nome: str):
+    @staticmethod
+    def verifica_laboratorio(nome: str):
         laboratorio_associado = next((lab for lab in Laboratorio.lista_laboratorios if lab.nome == nome), None)
 
         if laboratorio_associado is None:

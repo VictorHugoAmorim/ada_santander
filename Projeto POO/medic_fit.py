@@ -7,7 +7,8 @@ class MedicFit(Medicamentos):
         super().__init__(nome, principal_composto, laboratorio, descricao, valor)
         MedicFit.lista_fit.append(self)
     
-    def cadastrar_medic_quimio(self) -> str:
+    @staticmethod
+    def cadastrar_medic_fit():
         nome = input("Nome do medicamento: ")
         principal_composto = input("Principal composto: ")
         laboratorio = input("Laboratório: ")
@@ -23,5 +24,5 @@ class MedicFit(Medicamentos):
             descricao=descricao,
             valor=valor,
         )
-
+        
         print("Medicamento fitoterápico cadastrado com sucesso!")
