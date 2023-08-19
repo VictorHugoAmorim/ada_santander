@@ -5,21 +5,20 @@ from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
 
 # by NWErickSasaki
-# TODO adicionar get ou property em dados sensiveis
+# TODO sigilo no valor do carrinho, cliente na compra, CPF do cliente
 class Vendas:
 
-    cadastro_vendas=[] # [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ]
+    cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
 
-    def __init__(self) -> None:
-        self.data_hora = datetime.now()
-        self.produtos_vendidos:Carrinho_de_vendas
-        self.valor_total:float
-        self.desconto:float = 0
-        self.cliente:Cadastro
+    def __init__(self, cliente:Cadastro=Cadastro(), data_hora:datetime=datetime.now(),produtos_vendidos:Carrinho_de_vendas=Carrinho_de_vendas()) -> None:
+        self.cliente = self.cliente
+        self.data_hora = self.data_hora
+        self.produtos_vendidos = self.produtos_vendidos
+        self.valor_total = self.calcula_total( self.produtos_vendidos ) 
+        self.desconto = self.verifica_desconto( self.cliente['idade'] , self.produtos_vendidos.valor_total )
         return None
 
     def iniciar_vendas(self) -> None: # TODO
-
         self.cliente = self.encontrar_cliente_por_cpf()
         self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()
         self.valor_total = self.calcula_total( self.produtos_vendidos ) 
@@ -41,9 +40,15 @@ class Vendas:
                   """)
             match opcao:
                 case '1':
+
                     cpf = input_de_CPF_valido() # TODO
+
+                    pass
+                    #cpf = input_de_CPF_valido() # TODO
+
                 case '2':
-                    cliente.Cadastro.coleta_dados()
+                    pass
+                    #cliente.Cadastro.coleta_dados()
                 case _:
                     pass
         # return cliente_com_cpf(cpf) TODO
@@ -71,3 +76,8 @@ class Vendas:
             -----------------------------""")
 
         pass
+
+teste = True
+if teste:
+    nv = Vendas()
+    print(nv)
