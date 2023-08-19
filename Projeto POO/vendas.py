@@ -9,12 +9,12 @@ class Vendas:
 
     cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
 
-    def __init__(self) -> None:
-        self.data_hora = datetime.now()
-        self.produtos_vendidos:Carrinho_de_vendas
-        self.valor_total:float
-        self.desconto:float = 0
-        self.cliente:Cadastro
+    def __init__(self, cliente:Cadastro=Cadastro(), data_hora:datetime=datetime.now(),produtos_vendidos:Carrinho_de_vendas=Carrinho_de_vendas()) -> None:
+        self.cliente = self.cliente
+        self.data_hora = self.data_hora
+        self.produtos_vendidos = self.produtos_vendidos
+        self.valor_total = self.calcula_total( self.produtos_vendidos ) 
+        self.desconto = self.verifica_desconto( self.cliente['idade'] , self.produtos_vendidos.valor_total )
         return None
 
     def iniciar_vendas(self) -> None: # TODO
@@ -71,3 +71,8 @@ class Vendas:
             -----------------------------""")
 
         pass
+
+teste = True
+if teste:
+    nv = Vendas()
+    print(nv)
