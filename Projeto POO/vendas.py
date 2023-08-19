@@ -14,9 +14,13 @@ class Vendas:
         self.cliente = self.cliente
         self.data_hora = self.data_hora
         self.produtos_vendidos = self.produtos_vendidos
-        self.valor_total = self.calcula_total( self.produtos_vendidos ) 
+        self._valor_total = self.calcula_total( self.produtos_vendidos ) 
         self.desconto = self.verifica_desconto( self.cliente['idade'] , self.produtos_vendidos.valor_total )
         return None
+
+    @property
+    def valor_total(self):
+        return self._valor_total
 
     def iniciar_vendas(self) -> None: # TODO
         self.cliente = self.encontrar_cliente_por_cpf()
