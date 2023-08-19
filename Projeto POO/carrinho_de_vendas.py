@@ -19,6 +19,15 @@ class Carrinho_de_vendas:
         txt += f"\nTOTAL = R$ {self.valor_total:.2f}"
         return txt
 
+    @property
+    def valor_total(self) -> float:
+        lista_em_duplas = [] # [rem,1],[rem_A,3]
+        for i in range (len(self.carrinho[0])):
+            lista_em_duplas.append([self.carrinho[0][i],self.carrinho[1][i]])
+        soma = lambda element , inicio : element + inicio
+        self._valor_total = reduce(soma, ( itens[0].valor * itens[1] for itens in lista_em_duplas) , 0)
+        return self._valor_total
+
     def editar_carrinho(self) -> dict:
         opcao = ""
         while not opcao == "0":
@@ -35,16 +44,18 @@ class Carrinho_de_vendas:
                 case '1':
                     print(self)
 
-                case '2':
-                    remedio_selecionado = self.localiza_remedio_por_input()
-                    # se ja no carrinho TODO
-                    # se nao esta no carrinho TODO
-                    quantidade = self.dar_input_de_quantidade_desejada_para(remedio_selecionado)
-                    if quantidade:
-                        self.carrinho[0].append(remedio_selecionado)
-                        self.carrinho[1].append(quantidade)
-                        print(f'Adicionado: {quantidade} x {remedio_selecionado.nome}')
-
+                case '2': # TODO Unificar adicionar e alterar quantidade
+                    remedio_selecionado=self.localiza_remedio_por_input()
+                    if self.medicamento_ja_no_carrinho(remedio_selecionado):
+                        self.altera_no_carrinho_a_quantidade_do(remedio_selecionado)
+                        continue
+                    elif self.verifica_se_precisa_de_receita(remedio_selecionado):
+                        if not self.cliente_tem_receita_para(remedio_selecionado):
+                            print(f'Nao adicionado ao carrinho: {remedio_selecionado.nome}')
+                            continue
+                    quantidade = self.pede_input_de_quantidade_desejada_de(remedio_selecionado)
+                    self.adiciona_no_carrinho(remedio_selecionado, quantidade)
+        
                 case '3':
                     remedio_selecionado = self.localiza_remedio_por_input(onde=self.carrinho[0])
                     self.altera_no_carrinho_a_quantidade_do(remedio_selecionado)
@@ -59,31 +70,23 @@ class Carrinho_de_vendas:
                 case _:
                     print(f"A opcao '{opcao}' é invalida!")
 
-    def dar_input_de_quantidade_desejada_para(remedio_selecionado:Medicamentos) -> int:
-        quantidade = 0
-        if self.medicamento_ja_no_carrinho(remedio_selecionado):
-            self.altera_no_carrinho_a_quantidade_do(remedio_selecionado)
-        elif self.verifica_se_precisa_de_receita(remedio_selecionado):
-            if not self.cliente_tem_receita_para(remedio_selecionado):
-                print(f'O remedio {remedio_selecionado.nome} nao adicionado ao carrinho.')
-        elif not quantidade:
-            quantidade = self.pede_input_de_quantidade_desejada_de(remedio_selecionado)
-        return quantidade
-
-    def altera_no_carrinho_a_quantidade_do(self, remedio_selecionado:Medicamentos) -> None:
-        nova_quantidade = self.pede_input_de_quantidade_desejada_de(remedio_selecionado)
+    def altera_no_carrinho_a_quantidade_do(self, remedio_selecionado:Medicamentos, nova_quantidade:int=0) -> None:
+        nova_quantidade = (self.pede_input_de_quantidade_desejada_de(remedio_selecionado) if nova_quantidade==0 else nova_quantidade)
         if nova_quantidade <= 0:
             self.retirar_do_carrinho(remedio_selecionado)
         elif remedio_selecionado in self.carrinho[0]:
             idx = self.carrinho[0].index(remedio_selecionado)
             self.carrinho[1][idx] = nova_quantidade
+            print(f'Alterado para: {nova_quantidade} x {remedio_selecionado.nome}')
+        else:
+            self.adiciona_no_carrinho(remedio_selecionado, nova_quantidade)
         return None
 
 
     def cliente_tem_receita_para(self, remedio_selecionado:Medicamentos) -> bool:
         num = input(f"""
         O Cliente tem receita para
-        {remedio_selecionado.nome}?
+        "{remedio_selecionado.nome}"?
 
         1 - Sim
         2 - Não
@@ -108,30 +111,26 @@ class Carrinho_de_vendas:
     def pede_input_de_quantidade_desejada_de(self, remedio_selecionado:Medicamentos) -> int:
         num = -1
         while num != 0:
-            num = input(f'Digite a quantidade deseja de {remedio_selecionado.nome} que gostaria de ter no carrinho: ').strip()
+            num = input(f'Digite a quantidade deseja de "{remedio_selecionado.nome}" que gostaria de ter no carrinho: ').strip()
             if num.isdigit():
                 num = int(num)
                 return num
+
+    def adiciona_no_carrinho(self, remedio_selecionado:Medicamentos, quantidade:int=1) -> None:
+        if quantidade:
+            self.carrinho[0].append(remedio_selecionado)
+            self.carrinho[1].append(quantidade)
+            print(f'Adicionado: {quantidade} x "{remedio_selecionado.nome}"')
+            return None
+        print(f"Nao foi adicionado ao carrinho: {remedio_selecionado}")
 
     def retirar_do_carrinho(self, remedio_selecionado:Medicamentos) -> Medicamentos:
         if remedio_selecionado in self.carrinho[0]:
             idx = self.carrinho[0].index(remedio_selecionado)
             self.carrinho[0].pop(idx)
             self.carrinho[1].pop(idx)
+            print(f'Retirado do carrinho: {remedio_selecionado.nome}')
         return remedio_selecionado
-
-
-
-
-    @property
-    def valor_total(self) -> float:
-        nova_lista_em_duplas = [] # [rem,1],[rem_A,3]
-        for i in range (len(self.carrinho[0])):
-            nova_lista_em_duplas.append([self.carrinho[0][i],self.carrinho[1][i]])
-
-        soma = lambda element , inicio : element + inicio
-        self._valor_total = reduce(soma, ( itens[0].valor * itens[1] for itens in nova_lista_em_duplas) , 0)
-        return self._valor_total
 
     def localiza_remedio_por_input( self , palavra_do_remedio:str="" , onde:list=Medicamentos.lista_medicamentos ) -> Medicamentos:
         if not palavra_do_remedio:
@@ -170,7 +169,7 @@ class Carrinho_de_vendas:
 
  # Teste ----------------------------------------------------------
 
-teste = False
+teste = True
 
 if(teste):
     from lendocsv import lendo_csv
