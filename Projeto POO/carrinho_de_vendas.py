@@ -170,7 +170,8 @@ class Carrinho_de_vendas:
  # Teste ----------------------------------------------------------
 
 teste = False
-if(True):
+
+if(teste):
     from lendocsv import lendo_csv
     lendo_csv()
     nc = Carrinho_de_vendas()
