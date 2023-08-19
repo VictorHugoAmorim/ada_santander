@@ -5,7 +5,7 @@ from medic_quimio import *
 
 def lendo_csv():
 
-    with open('Projeto POO/csv/labs.csv', 'r', encoding='utf-8') as arquivo_labs_csv:
+    with open(r'.\csv\labs.csv', 'r', encoding='utf-8') as arquivo_labs_csv:
         labs_csv = csv.DictReader(arquivo_labs_csv)
         for linha in labs_csv:
           linha['nome'] = Laboratorio(
@@ -16,7 +16,7 @@ def lendo_csv():
           linha['estado']
         )
     
-    with open('Projeto POO/csv/fito.csv', 'r', encoding='utf-8') as arquivo_fito_csv:
+    with open(r'.\csv\fito.csv', 'r', encoding='utf-8') as arquivo_fito_csv:
         fito_csv = csv.DictReader(arquivo_fito_csv)
     
         for linha in fito_csv:
@@ -29,7 +29,7 @@ def lendo_csv():
                 valor=float(linha['valor'])
             )
     
-    with open('Projeto POO/csv/quimio.csv', 'r', encoding='utf-8') as arquivo_quimio_csv:
+    with open(r'.\csv\quimio.csv', 'r', encoding='utf-8') as arquivo_quimio_csv:
         quimio_csv = csv.DictReader(arquivo_quimio_csv)
     
         for linha in quimio_csv:
@@ -42,7 +42,7 @@ def lendo_csv():
                 necessita_receita=bool(linha['necessita_receita']),
                 valor=float(linha['valor'])
             )
-# Para testar, descomentar as linhas abaixo:
+#Para testar, descomentar as linhas abaixo:
 # lendo_csv()
 # print("Objetos instanciados...")
 # print(Laboratorio.lista_laboratorios)

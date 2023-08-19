@@ -1,4 +1,5 @@
 from datetime import datetime
+from cadastra_cliente import *
 from cadastra_cliente import Cadastro
 from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
@@ -40,7 +41,7 @@ class Vendas:
                   """)
             match opcao:
                 case '1':
-                    cpf = input_de_CPF_valido() TODO
+                    cpf = input_de_CPF_valido() # TODO
                 case '2':
                     cliente.Cadastro.coleta_dados()
                 case _:
