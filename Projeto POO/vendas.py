@@ -7,7 +7,7 @@ from carrinho_de_vendas import Carrinho_de_vendas
 # TODO adicionar get ou property em dados sensiveis
 class Vendas:
 
-    cadastro_vendas=[] # [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ]
+    cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
 
     def __init__(self) -> None:
         self.data_hora = datetime.now()
@@ -18,7 +18,6 @@ class Vendas:
         return None
 
     def iniciar_vendas(self) -> None: # TODO
-
         self.cliente = self.encontrar_cliente_por_cpf()
         self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()
         self.valor_total = self.calcula_total( self.produtos_vendidos ) 
