@@ -4,6 +4,7 @@ from medic_quimio import MedicQuimio
 from functools import reduce
 
 # by NWErickSasaki
+# TODO - sigilo no valor do carrinho, cliente na compra
 class Carrinho_de_vendas:
 
     def __init__(self, carrinho:list=[[],[]]):
@@ -36,23 +37,13 @@ class Carrinho_de_vendas:
 
                 case '2':
                     remedio_selecionado = self.localiza_remedio_por_input()
-                    quantidade = 0
-
-                    if self.medicamento_ja_no_carrinho(remedio_selecionado):
-                        self.altera_no_carrinho_a_quantidade_do(remedio_selecionado)
-                        continue
-
-                    if self.verifica_se_precisa_de_receita(remedio_selecionado):
-                        if not self.cliente_tem_receita_para(remedio_selecionado):
-                            print(f'O remedio {remedio_selecionado.nome} nao adicionado ao carrinho.')
-                            continue
-                    
-                    if not quantidade:
-                        quantidade = self.pede_input_de_quantidade_desejada_de(remedio_selecionado)
-
-                    self.carrinho[0].append(remedio_selecionado)
-                    self.carrinho[1].append(quantidade)
-                    print(f'Adicionado: {quantidade} x {remedio_selecionado.nome}')
+                    # se ja no carrinho TODO
+                    # se nao esta no carrinho TODO
+                    quantidade = self.dar_input_de_quantidade_desejada_para(remedio_selecionado)
+                    if quantidade:
+                        self.carrinho[0].append(remedio_selecionado)
+                        self.carrinho[1].append(quantidade)
+                        print(f'Adicionado: {quantidade} x {remedio_selecionado.nome}')
 
                 case '3':
                     remedio_selecionado = self.localiza_remedio_por_input(onde=self.carrinho[0])
@@ -67,6 +58,17 @@ class Carrinho_de_vendas:
 
                 case _:
                     print(f"A opcao '{opcao}' é invalida!")
+
+    def dar_input_de_quantidade_desejada_para(remedio_selecionado:Medicamentos) -> int:
+        quantidade = 0
+        if self.medicamento_ja_no_carrinho(remedio_selecionado):
+            self.altera_no_carrinho_a_quantidade_do(remedio_selecionado)
+        elif self.verifica_se_precisa_de_receita(remedio_selecionado):
+            if not self.cliente_tem_receita_para(remedio_selecionado):
+                print(f'O remedio {remedio_selecionado.nome} nao adicionado ao carrinho.')
+        elif not quantidade:
+            quantidade = self.pede_input_de_quantidade_desejada_de(remedio_selecionado)
+        return quantidade
 
     def altera_no_carrinho_a_quantidade_do(self, remedio_selecionado:Medicamentos) -> None:
         nova_quantidade = self.pede_input_de_quantidade_desejada_de(remedio_selecionado)

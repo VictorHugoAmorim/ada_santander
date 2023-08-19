@@ -4,7 +4,7 @@ from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
 
 # by NWErickSasaki
-# TODO adicionar get ou property em dados sensiveis
+# TODO sigilo no valor do carrinho, cliente na compra, CPF do cliente
 class Vendas:
 
     cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
