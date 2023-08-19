@@ -4,11 +4,11 @@ from medic_quimio import MedicQuimio
 from functools import reduce
 
 # by NWErickSasaki
-# TODO - sigilo no valor do carrinho, cliente na compra
+
 class Carrinho_de_vendas:
 
     def __init__(self, carrinho:list=[[],[]]):
-        self.carrinho = carrinho # [ [obj_Medicamento , obj_Medicamento_A ] , [ 1 , 3 ] ]
+        self.carrinho = carrinho # [ [obj_Med_A , obj_Med_B , ... ] , [ 1 , 3 , ... ] ]
         self._valor_total = self.valor_total
 
     def __repr__(self) -> str: # TODO
@@ -21,7 +21,7 @@ class Carrinho_de_vendas:
 
     @property
     def valor_total(self) -> float:
-        lista_em_duplas = [] # [rem,1],[rem_A,3]
+        lista_em_duplas = [] # [ [rem,1] , [rem_A,3] ... ]
         for i in range (len(self.carrinho[0])):
             lista_em_duplas.append([self.carrinho[0][i],self.carrinho[1][i]])
         soma = lambda element , inicio : element + inicio
@@ -40,6 +40,7 @@ class Carrinho_de_vendas:
                     0 Finalizar venda
                     
                     Digite um numero: """)
+            
             match opcao:
                 case '1':
                     print(self)
@@ -175,13 +176,5 @@ if(teste):
     from lendocsv import lendo_csv
     lendo_csv()
     nc = Carrinho_de_vendas()
-    #print(nc.valor_total)
-    #print(Medicamentos.lista_medicamentos)
-    #RemedioA=MedicFit('Coristina D',"abc",'aa','b c d e',5)
-    #RemedioD=MedicQuimio('Coristina E',"abc",'aa','b c d e',5,True)
-    #RemedioB=MedicFit('Coristina F',"abc",'aa','b c d e',50)
-    #RemedioC=MedicQuimio('Neosaldina',"novalgina",'aa','b c d e',15,False)
-    #print(nc.localiza_remedio_por_input('Coristina'))
-    #print(nc.valor_total)
     nc.editar_carrinho()
 
