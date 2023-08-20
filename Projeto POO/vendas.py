@@ -134,7 +134,7 @@ class Vendas:
 
 # Teste ----------------------------------------------------------
 
-TESTE = 1
+TESTE = 0
 if TESTE:
     import lendocsv
     lendocsv.lendo_csv()
