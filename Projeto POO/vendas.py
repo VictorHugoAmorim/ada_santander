@@ -14,7 +14,7 @@ DESCONTO_PORCENTAGEM_COMPRA_GRANDE = 0.1
 # TODO sigilo no valor do carrinho, cliente na compra, CPF do cliente
 class Vendas:
 
-    cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
+    cadastro_vendas=[] # [ obj_vendas1, obj_vendas2 ]
 
     def __init__(self, cliente:Cadastro=Cadastro(), data_hora:datetime=datetime.now(), produtos_vendidos:Carrinho_de_vendas=Carrinho_de_vendas()) -> None:
         self.cliente = cliente
@@ -112,7 +112,7 @@ class Vendas:
         """
         self.atualiza_valores()
         print(self)
-
+        Vendas.cadastro_vendas.append(self)
         pass
 
 # Teste ----------------------------------------------------------
