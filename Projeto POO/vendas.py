@@ -133,12 +133,15 @@ class Vendas:
             f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
         conteudo = csv.DictReader(f)
         for linha in conteudo:
-            # IDENTIFICADOR;DATA_HORA;PRODUTOS;QUANTIDADE
-            # Transforma IDENTIFICADOR em Cliente
-            # Transforma nome dos PRODUTOS em obj PRODUTO
-            # cria um novo obj de vendas utilizando os objetos como parametros
-            # dá append na lista
-            pass
+            cpf = linha['IDENTIFICADOR']
+            # cliente = Cadastro.pega_cliente_com_cpf(cpf) # TODO
+            data_hora = linha['DATA_HORA']
+            lista_produtos = linha['PRODUTOS'].split(',')
+            #obj_produtos = [ tranforma_em_obj(nome_produtos) for nome_produtos in lista_produtos ] # TODO
+            quantidade = linha['QUANTIDADE'].split(',')
+            # novo_carrinho = Carrinho_de_vendas([ obj_produtos , quantidade ]) # TODO
+            # nova_venda = Vendas(cliente, data_hora, novo_carrinho) # TODO
+            # cadastro_vendas.append(nova_venda) # TODO
         f.close()
         return None
 
@@ -148,6 +151,7 @@ TESTE = 0
 if TESTE:
     import lendocsv
     lendocsv.lendo_csv()
+    #Vendas.carrega_banco()
     print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
     eu = Cadastro('12345678901','Erick Teste', date(2000,1,1))
     eu.armazena_dados()
