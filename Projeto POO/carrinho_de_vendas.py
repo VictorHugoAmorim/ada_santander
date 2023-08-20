@@ -152,11 +152,11 @@ class Carrinho_de_vendas:
 
         if not lista_de_remedio:
             print('Medicamento nao encontrado!! :(')
-            self.localiza_remedio_por_input(palavra_do_remedio, onde)
+            self.localiza_remedio_por_input("", onde)
         elif len(lista_de_remedio)>1:
             return self.escolha_um_remedio_na(lista_de_remedio)
         else:
-            return lista_de_remedio[0]
+            return lista_de_remedio[0]  ### TODO da pra otimizar porem quando a lista só tem index 0 quebra
 
     def escolha_um_remedio_na(self, lista_de_remedio: list) -> Medicamentos:
         print('Digite o numero correspondente do remedio que gostaria de adicionar ou 0 para sair:\n')
@@ -177,3 +177,5 @@ if TESTE:
     lendo_csv()
     nc = Carrinho_de_vendas()
     nc.editar_carrinho()
+
+    # erro ao puxar carrinho [,[0,2]]

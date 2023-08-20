@@ -17,7 +17,6 @@ class Vendas:
     cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
 
     def __init__(self, cliente:Cadastro=Cadastro(), data_hora:datetime=datetime.now(), produtos_vendidos:Carrinho_de_vendas=Carrinho_de_vendas()) -> None:
-        print('aaaaaaaaaaaaaaaaaaaaa')
         self.cliente = cliente
         self.data_hora = data_hora
         self.produtos_vendidos = produtos_vendidos
@@ -64,43 +63,36 @@ class Vendas:
         return self._valor_total_com_desconto
 
     def iniciar_vendas(self) -> None: # TODO
+        print("Para realizar uma venda, por favor, informe o cliente.")
         self.cliente = self.encontrar_cliente_por_cpf()
+        print(f"\nCliente localizado. \nBem vindo {self.cliente.nome} \nnIniciando venda.")
         self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()       
         self.fechamento_compra() 
         return None
 
     def encontrar_cliente_por_cpf(self) -> Cadastro: # TODO
-
-        cpf = cadastros_clientes.valida_identificador()
-
-        if cpf not in Cadastro.cadastros_clientes['identificador']:
+        cpf = Cadastro.valida_identificador()
+        while cpf not in cadastros_clientes['identificador']:
             opcao = input("""
                   CPF não encontrado no sistema.
                   Digite o número correspondente para: 
-                  1 - Buscar outro CPF
-                  2 - Cadastrar o novo cliente
+                  1 - Cadastrar cliente
+                  * - Buscar outro CPF
                   """)
             match opcao:
                 case '1':
-
-                    cpf = input_de_CPF_valido() # TODO
-
-                    pass
-                    #cpf = input_de_CPF_valido() # TODO
-
-                case '2':
-                    pass
-                    #cliente.Cadastro.coleta_dados()
+                    novo_cliente = Cadastro(Cadastro.coleta_dados())
+                    novo_cliente.armazena_dados()
+                    cpf = novo_cliente.identificador
                 case _:
-                    pass
-        # return cliente_com_cpf(cpf) TODO
-
-    
+                     cpf = Cadastro.valida_identificador()
+        ##################return Cadastro._cliente_que_contenha_o_cpf(cpf)
+        return Cadastro('12345678901','Erick Teste', date(2000,1,1))
 
     def verifica_porcentagem_de_desconto( idade:int , total_da_compra:float ) -> float:
         return DESCONTO_PORCENTAGEM_IDOSO if idade > IDADE_IDOSO else DESCONTO_PORCENTAGEM_COMPRA_GRANDE if total_da_compra > VALOR_COMPRA_GRANDE else 0
 
-    def fechamento_compra() -> None: # TODO
+    def fechamento_compra(self) -> None: # TODO
         """
         Ao fechar adiciona a compra ao "banco de dados"
         em formato dict usando como chave o datetime
@@ -112,7 +104,7 @@ class Vendas:
 
             CLIENTE {self.cliente.nome}
             CPF {self.cliente.identificador}
-            {self.produtos_vendidos}
+            {self.produtos_vendido1s}
             DESCONTO/tR$ {self._valor_de_desconto:.2f}\t({self._porcentagem_de_desconto*100:.2f}%)
             TOTAL A PAGAR R$ {(self._valor_total_com_desconto):.2f}
             -----------------------------""")
@@ -123,11 +115,16 @@ class Vendas:
 
 TESTE = 1
 if TESTE:
+    import lendocsv
+    lendocsv.lendo_csv()
     print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
-    eu = Cadastro('12345678901','Erick Teste', date(2000,1,1), 66)
+    eu = Cadastro('12345678901','Erick Teste', date(2000,1,1))
+    eu.armazena_dados()
+
     #print(eu.nome)
     #print(eu.identificador)
     #print(eu.data_nascimento)
-    #print(eu.idade)
+
     nv = Vendas()
-    print(nv)
+    #print(nv)
+    nv.iniciar_vendas()
