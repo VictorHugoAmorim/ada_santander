@@ -23,6 +23,18 @@ class Vendas:
         self.atualiza_valores()
         return None
 
+    def __repr__(self):
+        return(f"""
+        \t############################################################  
+
+        \tCLIENTE\t{self.cliente.nome.upper()}
+        \tCPF\t{self.cliente.identificador}
+        {self.produtos_vendidos}
+        \tDESCONTO\tR$ {self._valor_de_desconto:.2f}\t({self._porcentagem_de_desconto*100:.2f}%)
+        \tTOTAL A PAGAR \tR$ {(self._valor_total_com_desconto):.2f}
+
+        \t############################################################""")
+
     def atualiza_valores(self) -> None:
         self._valor_total_sem_desconto = self.produtos_vendidos.valor_total
         self._porcentagem_de_desconto = Vendas.verifica_porcentagem_de_desconto( self.cliente.idade , self._valor_total_sem_desconto )
@@ -86,8 +98,8 @@ class Vendas:
                     cpf = novo_cliente.identificador
                 case _:
                      cpf = Cadastro.valida_identificador()
-        ##################return Cadastro._cliente_que_contenha_o_cpf(cpf)
-        return Cadastro('12345678901','Erick Teste', date(2000,1,1))
+        return Cadastro._cliente_que_contenha_o_cpf(cpf)
+        #return Cadastro('12345678901','Erick Teste', date(2000,1,1)) # para usar para teste enquanto a função acima for implementada
 
     def verifica_porcentagem_de_desconto( idade:int , total_da_compra:float ) -> float:
         return DESCONTO_PORCENTAGEM_IDOSO if idade > IDADE_IDOSO else DESCONTO_PORCENTAGEM_COMPRA_GRANDE if total_da_compra > VALOR_COMPRA_GRANDE else 0
@@ -99,21 +111,13 @@ class Vendas:
         e adiciona no arquivo .json 
         """
         self.atualiza_valores()
-        print(f"""
-            ----- COMPRA CADASTRADA -----  
-
-            CLIENTE {self.cliente.nome}
-            CPF {self.cliente.identificador}
-            {self.produtos_vendido1s}
-            DESCONTO/tR$ {self._valor_de_desconto:.2f}\t({self._porcentagem_de_desconto*100:.2f}%)
-            TOTAL A PAGAR R$ {(self._valor_total_com_desconto):.2f}
-            -----------------------------""")
+        print(self)
 
         pass
 
 # Teste ----------------------------------------------------------
 
-TESTE = 1
+TESTE = 0
 if TESTE:
     import lendocsv
     lendocsv.lendo_csv()

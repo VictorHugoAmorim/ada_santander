@@ -12,11 +12,12 @@ class Carrinho_de_vendas:
         self._valor_total = self.valor_total
 
     def __repr__(self) -> str: # TODO
-        txt =  "\n\n##### CARRINHO #####\n\n"
-        txt += "ID\tMEDICAMENTO\tQTD\tPREÇO\t\tSUB-TOTAL\n"
+        txt =  """
+        \t-------------------------- COMPRA --------------------------\n
+        \tID\tMEDICAMENTO\tQTD\tPREÇO\t\tSUB-TOTAL\n\n"""
         for idx,itens in enumerate(self.carrinho[0], start=1):
-            txt += f"{idx}\t{itens.nome}\t{str(self.carrinho[1][idx-1])}\tR$ {itens.valor:.2f}\tR$ {itens.valor*self.carrinho[1][idx-1]:.2f}   \n"
-        txt += f"\nTOTAL = R$ {self.valor_total:.2f}"
+            txt += f"\t\t{idx}\t{itens.nome.upper()}\t{str(self.carrinho[1][idx-1])}\tR$ {itens.valor:.2f}\tR$ {itens.valor*self.carrinho[1][idx-1]:.2f}   \n"
+        txt += f"\n\t\tTOTAL \t\tR$ {self.valor_total:.2f}"
         return txt
 
     @property
@@ -45,7 +46,7 @@ class Carrinho_de_vendas:
                 case '1':
                     print(self)
 
-                case '2': # TODO Unificar adicionar e alterar quantidade
+                case '2':
                     remedio_selecionado=self.localiza_remedio_por_input()
                     if self.medicamento_ja_no_carrinho(remedio_selecionado):
                         self.altera_no_carrinho_a_quantidade_do(remedio_selecionado)
@@ -66,7 +67,7 @@ class Carrinho_de_vendas:
                     self.retirar_do_carrinho(remedio_selecionado) 
 
                 case '0':
-                    return self.carrinho
+                    return self
 
                 case _:
                     print(f"A opcao '{opcao}' é invalida!")
@@ -137,13 +138,12 @@ class Carrinho_de_vendas:
         if not palavra_do_remedio:
             palavra_do_remedio =  input('Digite qual remedio está procurando:')
         palavra_do_remedio = palavra_do_remedio.lower()
+
         lista_remedios_por_nome = [ remedio for remedio in onde if palavra_do_remedio in remedio.nome.lower()]
         lista_remedios_por_principal_composto = [ remedio for remedio in onde if palavra_do_remedio in remedio.principal_composto.lower()]
         lista_remedios_por_descricao = [ remedio for remedio in onde if palavra_do_remedio in remedio.descricao.lower()]
         lista_remedios_por_laboratorio = [ remedio for remedio in onde if palavra_do_remedio in remedio.laboratorio.nome.lower()]
-        
         lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto + lista_remedios_por_laboratorio + lista_remedios_por_descricao
-        #lista_todos = lista_remedios_por_nome + lista_remedios_por_principal_composto  + lista_remedios_por_descricao
         
         dict_remedios={}
         for e in lista_todos:
@@ -163,7 +163,7 @@ class Carrinho_de_vendas:
         for idx,itens in enumerate(lista_de_remedio, start = 1):
             print(idx, itens,'\n')
         num = -1
-        while not num in range(1,len(lista_de_remedio)+1): # TODO verificar se pega 0 e o ultimo numero
+        while not num in range(1,len(lista_de_remedio)+1):
             num = input('Digite um numero: ').strip()
             num = ( int(num) if num.isdigit() else -1 )
         return False if num==0 else lista_de_remedio[num-1]
