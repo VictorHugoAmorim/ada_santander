@@ -98,8 +98,8 @@ class Vendas:
                     cpf = novo_cliente.identificador
                 case _:
                      cpf = Cadastro.valida_identificador()
-        return Cadastro._cliente_que_contenha_o_cpf(cpf)
-        #return Cadastro('12345678901','Erick Teste', date(2000,1,1)) # para usar para teste enquanto a função acima for implementada
+        #return Cadastro._cliente_que_contenha_o_cpf(cpf)
+        return Cadastro('12345678901','Erick Teste', date(2000,1,1)) # para usar para teste enquanto a função acima for implementada
 
     def verifica_porcentagem_de_desconto( idade:int , total_da_compra:float ) -> float:
         return DESCONTO_PORCENTAGEM_IDOSO if idade > IDADE_IDOSO else DESCONTO_PORCENTAGEM_COMPRA_GRANDE if total_da_compra > VALOR_COMPRA_GRANDE else 0
@@ -113,11 +113,28 @@ class Vendas:
         self.atualiza_valores()
         print(self)
         Vendas.cadastro_vendas.append(self)
+        Vendas.salva_banco(self)
         pass
+
+    def salva_banco(self) -> None:
+        str_de_produtos = ','.join([e.nome for e in self.produtos_vendidos.carrinho[0]])
+        str_de_precos = ','.join([str(e) for e in self.produtos_vendidos.carrinho[1]])
+        try:
+            PATH = '.\csv\'
+            f = open(f'{PATH}vendas.csv','a')
+        except:
+            PATH = 'Projeto POO/csv/'
+            f = open(f'{PATH}vendas.csv','a')
+        f.write(f'\n{self.cliente.nome};{self.data_hora};{str_de_produtos};{str_de_precos}')
+        f.close()
+        return None
+
+    def carrega_banco(self) -> None:
+        return None
 
 # Teste ----------------------------------------------------------
 
-TESTE = 0
+TESTE = 1
 if TESTE:
     import lendocsv
     lendocsv.lendo_csv()
