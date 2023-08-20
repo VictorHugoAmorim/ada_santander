@@ -3,6 +3,7 @@ from cadastra_cliente import *
 from cadastra_cliente import Cadastro
 from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
+from datetime import date
 
 IDADE_IDOSO = 65
 VALOR_COMPRA_GRANDE = 150
@@ -16,6 +17,7 @@ class Vendas:
     cadastro_vendas=[] # [ [ cliente.Cadastro() , datetime.now() , carrinho.Carrinho() ] , [...] ]
 
     def __init__(self, cliente:Cadastro=Cadastro(), data_hora:datetime=datetime.now(), produtos_vendidos:Carrinho_de_vendas=Carrinho_de_vendas()) -> None:
+        print('aaaaaaaaaaaaaaaaaaaaa')
         self.cliente = cliente
         self.data_hora = data_hora
         self.produtos_vendidos = produtos_vendidos
@@ -24,7 +26,7 @@ class Vendas:
 
     def atualiza_valores(self) -> None:
         self._valor_total_sem_desconto = self.produtos_vendidos.valor_total
-        self._porcentagem_de_desconto = self.verifica_porcentagem_de_desconto( self.cliente['idade'] , self._valor_total_sem_desconto )
+        self._porcentagem_de_desconto = Vendas.verifica_porcentagem_de_desconto( self.cliente.idade , self._valor_total_sem_desconto )
         self._valor_de_desconto = self.porcentagem_de_desconto * self._valor_total_sem_desconto
         self._valor_total_com_desconto = self._valor_total_sem_desconto - self.valor_de_desconto
         return None
@@ -63,16 +65,13 @@ class Vendas:
 
     def iniciar_vendas(self) -> None: # TODO
         self.cliente = self.encontrar_cliente_por_cpf()
-        self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()
-        #self._valor_total_sem_desconto = self.produtos_vendidos.valor_total 
-        #self.porcentagem_de_desconto = self.verifica_porcentagem_de_desconto( self.cliente['idade'] , self._valor_total_sem_desconto )
-        
+        self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()       
         self.fechamento_compra() 
         return None
 
     def encontrar_cliente_por_cpf(self) -> Cadastro: # TODO
 
-        # cpf = input_de_CPF_valido() TODO
+        cpf = cadastros_clientes.valida_identificador()
 
         if cpf not in Cadastro.cadastros_clientes['identificador']:
             opcao = input("""
@@ -107,20 +106,28 @@ class Vendas:
         em formato dict usando como chave o datetime
         e adiciona no arquivo .json 
         """
-        self.valor_total = self.produtos_vendidos.valor_total-desconto
+        self.atualiza_valores()
         print(f"""
             ----- COMPRA CADASTRADA -----  
 
             CLIENTE {self.cliente.nome}
-            CPF {cliente.identificador}
+            CPF {self.cliente.identificador}
             {self.produtos_vendidos}
-            DESCONTO/tR$ {desconto:.2f}
-            TOTAL A PAGAR R$ {(valor_total):.2f}
+            DESCONTO/tR$ {self._valor_de_desconto:.2f}\t({self._porcentagem_de_desconto*100:.2f}%)
+            TOTAL A PAGAR R$ {(self._valor_total_com_desconto):.2f}
             -----------------------------""")
 
         pass
 
-teste = True
-if teste:
+# Teste ----------------------------------------------------------
+
+TESTE = 1
+if TESTE:
+    print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
+    eu = Cadastro('12345678901','Erick Teste', date(2000,1,1), 66)
+    #print(eu.nome)
+    #print(eu.identificador)
+    #print(eu.data_nascimento)
+    #print(eu.idade)
     nv = Vendas()
     print(nv)

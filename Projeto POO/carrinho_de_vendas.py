@@ -168,13 +168,12 @@ class Carrinho_de_vendas:
             num = ( int(num) if num.isdigit() else -1 )
         return False if num==0 else lista_de_remedio[num-1]
 
- # Teste ----------------------------------------------------------
+# Teste ----------------------------------------------------------
 
-teste = True
-
-if(teste):
+TESTE = 0
+if TESTE:
+    print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
     from lendocsv import lendo_csv
     lendo_csv()
     nc = Carrinho_de_vendas()
     nc.editar_carrinho()
-
