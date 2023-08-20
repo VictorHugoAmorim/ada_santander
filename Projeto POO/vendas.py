@@ -79,7 +79,9 @@ class Vendas:
         self.cliente = self.encontrar_cliente_por_cpf()
         print(f"\nCliente localizado. \nBem vindo {self.cliente.nome} \nnIniciando venda.")
         self.produtos_vendidos  = Carrinho_de_vendas().editar_carrinho()       
-        self.fechamento_compra() 
+        self.fechamento_compra()
+        print(self)
+        Vendas.salva_banco(self)
         return None
 
     def encontrar_cliente_por_cpf(self) -> Cadastro: # TODO
@@ -105,31 +107,39 @@ class Vendas:
         return DESCONTO_PORCENTAGEM_IDOSO if idade > IDADE_IDOSO else DESCONTO_PORCENTAGEM_COMPRA_GRANDE if total_da_compra > VALOR_COMPRA_GRANDE else 0
 
     def fechamento_compra(self) -> None: # TODO
-        """
-        Ao fechar adiciona a compra ao "banco de dados"
-        em formato dict usando como chave o datetime
-        e adiciona no arquivo .json 
-        """
         self.atualiza_valores()
-        print(self)
         Vendas.cadastro_vendas.append(self)
-        Vendas.salva_banco(self)
-        pass
+        return None
 
     def salva_banco(self) -> None:
         str_de_produtos = ','.join([e.nome for e in self.produtos_vendidos.carrinho[0]])
         str_de_precos = ','.join([str(e) for e in self.produtos_vendidos.carrinho[1]])
         try:
             PATH = '.\csv\'
-            f = open(f'{PATH}vendas.csv','a')
+            f = open(f'{PATH}vendas.csv','a', encoding='utf-8')
         except:
             PATH = 'Projeto POO/csv/'
-            f = open(f'{PATH}vendas.csv','a')
+            f = open(f'{PATH}vendas.csv','a', encoding='utf-8')
         f.write(f'\n{self.cliente.nome};{self.data_hora};{str_de_produtos};{str_de_precos}')
         f.close()
         return None
 
     def carrega_banco(self) -> None:
+        try:
+            PATH = '.\csv\'
+            f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
+        except:
+            PATH = 'Projeto POO/csv/'
+            f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
+        conteudo = csv.DictReader(f)
+        for linha in conteudo:
+            # IDENTIFICADOR;DATA_HORA;PRODUTOS;QUANTIDADE
+            # Transforma IDENTIFICADOR em Cliente
+            # Transforma nome dos PRODUTOS em obj PRODUTO
+            # cria um novo obj de vendas utilizando os objetos como parametros
+            # dá append na lista
+            pass
+        f.close()
         return None
 
 # Teste ----------------------------------------------------------
