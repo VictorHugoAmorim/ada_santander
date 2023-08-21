@@ -100,12 +100,13 @@ class Vendas:
             match opcao:
                 case '1':
                     novo_cliente = Cadastro()
-                    novo_cliente = novo_cliente.coleta_dados()
+                    a,b,c,d = novo_cliente.coleta_dados()
+                    novo_cliente = Cadastro(a,b,c,d)
                     novo_cliente.armazena_dados()
                     cpf = novo_cliente.identificador
                 case _:
-                     cpf = Cadastro.valida_identificador()
-        return Cadastro.pega_cliente_com_cpf(cpf)
+                    cpf = Cadastro.valida_identificador()
+        return Vendas.pega_cliente_com_cpf(cpf)
         #return Cadastro('12345678901','Erick Teste', date(2000,1,1)) # para usar para teste enquanto a função acima for implementada
 
     def verifica_porcentagem_de_desconto( idade:int , total_da_compra:float ) -> float:
