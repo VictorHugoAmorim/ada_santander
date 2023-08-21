@@ -5,10 +5,10 @@ import time
 TAMANHO_DO_CPF = 11
 #incialização de dicionario
 cadastros_clientes = {
-    'identificador': [],
-    'nome': [],
-    'data_nascimento': [],
-    'idade': []
+    'identificador': ['12345678901'],
+    'nome': ['Usuario Zero'],
+    'data_nascimento': [datetime(1950,1,1)],
+    'idade': [63]
 }
 class Cadastro:
 

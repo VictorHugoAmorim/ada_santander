@@ -16,17 +16,17 @@ class Carrinho_de_vendas:
         \t-------------------------- COMPRA --------------------------\n
         \tID\tMEDICAMENTO\tQTD\tPREÇO\t\tSUB-TOTAL\n\n"""
         for idx,itens in enumerate(self.carrinho[0], start=1):
-            txt += f"\t\t{idx}\t{itens.nome.upper()}\t{str(self.carrinho[1][idx-1])}\tR$ {itens.valor:.2f}\tR$ {itens.valor*self.carrinho[1][idx-1]:.2f}   \n"
+            txt += f"\t\t{idx}\t{itens.nome.upper()}\t{str(self.carrinho[1][idx-1])}\tR$ {itens.valor:.2f}\tR$ {itens.valor*int(self.carrinho[1][idx-1]):.2f}   \n"
         txt += f"\n\t\tTOTAL \t\tR$ {self.valor_total:.2f}"
         return txt
 
     @property
     def valor_total(self) -> float:
-        lista_em_duplas = [] # [ [rem,1] , [rem_A,3] ... ]
+        lista_em_duplas = [ ] # [ [rem,1] , [rem_A,3] ... ]
         for i in range (len(self.carrinho[0])):
             lista_em_duplas.append([self.carrinho[0][i],self.carrinho[1][i]])
         soma = lambda element , inicio : element + inicio
-        self._valor_total = reduce(soma, ( itens[0].valor * itens[1] for itens in lista_em_duplas) , 0)
+        self._valor_total = reduce(soma, ( itens[0].valor * int(itens[1]) for itens in lista_em_duplas) , 0)
         return self._valor_total
 
     def editar_carrinho(self) -> dict:

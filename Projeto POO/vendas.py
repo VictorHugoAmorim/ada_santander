@@ -135,20 +135,29 @@ class Vendas:
         except:
             PATH = 'Projeto POO/csv/'
             f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
-        conteudo = csv.DictReader(f)
+        conteudo = csv.DictReader(f, delimiter=";")
         for linha in conteudo:
             cpf = linha['IDENTIFICADOR']
-            cliente = Cadastro.pega_cliente_com_cpf(cpf) # TODO
+            cliente = Vendas.pega_cliente_com_cpf(cpf) # TODO
             data_hora = linha['DATA_HORA']
             lista_produtos = linha['PRODUTOS'].split(',')
-            obj_produtos = [ Vendas.nome_medicamento_pra_obj(nome_produtos) for nome_produtos in lista_produtos ] # TODO
+            obj_produtos = [ Vendas.nome_medicamento_pra_obj(nome_produtos) for nome_produtos in lista_produtos ]
             quantidade = linha['QUANTIDADE'].split(',')
-            #novo_carrinho = Carrinho_de_vendas([ obj_produtos , quantidade ]) # TODO
-            #nova_venda = Vendas(cliente, data_hora, novo_carrinho) # TODO
-            #Vendas.cadastro_vendas.append(nova_venda) # TODO
+            novo_carrinho = Carrinho_de_vendas([ obj_produtos , quantidade ]) 
+            nova_venda = Vendas(cliente, data_hora, novo_carrinho)
+            Vendas.cadastro_vendas.append(nova_venda)
         f.close()
-        return None #
+        return None
     
+    def pega_cliente_com_cpf(cpf) -> Cadastro:
+        idx = cadastros_clientes['identificador'].index(cpf)
+        identificador = cadastros_clientes['identificador'][idx]
+        nome = cadastros_clientes['nome'][idx]
+        data_nascimento = cadastros_clientes['data_nascimento'][idx]
+        idade = cadastros_clientes['idade'][idx]
+        obj_cliente = Cadastro(identificador,nome,data_nascimento,idade)
+        return obj_cliente
+
     def nome_medicamento_pra_obj(nome):
         for idx, med in enumerate(Medicamentos.lista_medicamentos):
             if med.nome == nome:       
@@ -238,11 +247,13 @@ class Vendas:
 
 TESTE = 0
 if TESTE:
+    print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
     import lendocsv
     lendocsv.lendo_csv()
 
-    #Vendas.carrega_banco()
-    print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
+    Vendas.carrega_banco()
+    print(Vendas.cadastro_vendas)
+
     eu = Cadastro('12345678901','Erick Teste', date(2000,1,1))
     eu.armazena_dados()
 
