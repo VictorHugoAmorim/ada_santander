@@ -56,7 +56,7 @@ def sys():
                         except:
                             print('Erro no cadastro do medicamento!\n')
 
-                    if user_choice_medicamento == '2': #Alterar medicamento
+                    elif user_choice_medicamento == '2': #Alterar medicamento
                         nome_medicamento = input('Digite o nome do medicamento que deseja alterar:\n')
                         medicamento_alterar = None
         
@@ -90,7 +90,11 @@ def sys():
                                 print ("Principal composto do medicamento alterado")
                     
                         if user_choice_alterarmedic == '3':
-                            pass
+                            novo_laboratorio = input(f"Novo laboratório ({medicamento_alterar.laboratorio.nome}): ")
+                            lab_associado = Laboratorio.verifica_laboratorio(novo_laboratorio)
+                            if lab_associado:
+                                medicamento_alterar.laboratorio = lab_associado
+                                print ("Laboratório do medicamento alterado")
                     
                         if user_choice_alterarmedic == '4':
                             nova_descrição = input(f"Nova descrição ({medicamento_alterar.descricao}): ")
@@ -104,7 +108,7 @@ def sys():
                                 medicamento_alterar.valor = novo_valor
                                 print ("Valor do medicamento alterado")
 
-                    if user_choice_medicamento == '3': #Buscar medicamento
+                    elif user_choice_medicamento == '3': #Buscar medicamento
                         try:
                             print('1 - Buscar medicamento por nome\n2 - Buscar medicamento por laboratório\n3 - Buscar medicamento por descrição')
                             user_choice_busca = input('Por favor, escolha o número da ação desejada:\n ')
