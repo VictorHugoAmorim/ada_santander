@@ -3,7 +3,8 @@ from laboratorio import *
 from medic_fit import *
 from medic_quimio import *
 
-PATH = '.\csv'
+# PATH = '.\csv'
+PATH = 'Projeto POO/csv/'
 
 def lendo_csv():
 

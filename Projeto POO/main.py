@@ -13,13 +13,14 @@ def sys():
     while True:
         print('#'*30,'MENU PRINCIPAL','#'*30,'\n')
         print('1- Cadastrar cliente\n2- Alterar cadastro de cliente\n3- Consultar clientes cadastrados',sep='')
-        print('4- Cadastrar medicamento\n5- Alterar cadastro de medicamento\n6- Consultar medicamentos cadastrados\n0- Sair')
+        print('4- Cadastrar medicamento\n5- Alterar cadastro de medicamento\n6- Consultar medicamentos cadastrados')
+        print('7- Buscar medicamento\n0- Sair')
         user_choice = input('Por favor, escolha o número da ação desejada:\n ')
         if user_choice == '0':
             print("Encerrando o programa...")
             time.sleep(3)
             break
-        elif user_choice in ['1','2','3','4','5','6','0']:    
+        elif user_choice in ['1','2','3','4','5','6','7','0']:    
             #Cadastrar clientes
             if user_choice == '1': 
                 cadastro_instance = Cadastro()
@@ -67,10 +68,43 @@ def sys():
                     else:
                         print("Opção inexistente")
                 except:
-                    print('Impossivel, nenhum cadastro encontrado!\n')
-            
-            #Continuar a partir daqui
-        
+                    print('Impossível, nenhum cadastro encontrado!\n')
+            # Buscar medicamento
+            elif user_choice == '7': 
+                try:
+                    print('1 - Buscar medicamento por nome\n2 - Buscar medicamento por laboratório\n3 - Buscar medicamento por descrição')
+                    user_choice_search = input('Por favor, escolha o número da ação desejada:\n ')
+                    if user_choice_search == '1':
+                        termo_busca = input("Digite o nome do medicamento: ")
+                        resultados = [med for med in Medicamentos.lista_medicamentos if termo_busca.lower() in med.nome.lower()]
+                        if resultados:
+                            print("Resultados encontrados:")
+                            for med in resultados:
+                                print(med)
+                        else:
+                            print("Nenhum resultado encontrado.")
+                    elif user_choice_search == '2':
+                        termo_busca = input("Digite o nome do laboratório do medicamento: ")
+                        resultados = [med for med in Medicamentos.lista_medicamentos if termo_busca.lower() in med.laboratorio.nome.lower()]
+                        if resultados:
+                            print("Resultados encontrados:")
+                            for med in resultados:
+                                print(med)
+                        else:
+                            print("Nenhum resultado encontrado.")
+                    elif user_choice_search == '3':
+                        termo_busca = input("Digite a descrição do medicamento: ")
+                        resultados = [med for med in Medicamentos.lista_medicamentos if termo_busca.lower() in med.descricao.lower()]
+                        if resultados:
+                            print("Resultados encontrados:")
+                            for med in resultados:
+                                print(med)
+                        else:
+                            print("Nenhum resultado encontrado.")
+                    else:
+                        print("Opção inexistente")
+                except:
+                    print('Impossível, nenhum cadastro encontrado!\n')        
 
 if __name__ == '__main__':
     sys()
