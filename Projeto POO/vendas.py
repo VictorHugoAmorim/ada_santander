@@ -138,17 +138,23 @@ class Vendas:
         conteudo = csv.DictReader(f)
         for linha in conteudo:
             cpf = linha['IDENTIFICADOR']
-            # cliente = Cadastro.pega_cliente_com_cpf(cpf) # TODO
+            cliente = Cadastro.pega_cliente_com_cpf(cpf) # TODO
             data_hora = linha['DATA_HORA']
             lista_produtos = linha['PRODUTOS'].split(',')
-            #obj_produtos = [ tranforma_em_obj(nome_produtos) for nome_produtos in lista_produtos ] # TODO
+            obj_produtos = [ Vendas.nome_medicamento_pra_obj(nome_produtos) for nome_produtos in lista_produtos ] # TODO
             quantidade = linha['QUANTIDADE'].split(',')
-            # novo_carrinho = Carrinho_de_vendas([ obj_produtos , quantidade ]) # TODO
-            # nova_venda = Vendas(cliente, data_hora, novo_carrinho) # TODO
-            # cadastro_vendas.append(nova_venda) # TODO
+            #novo_carrinho = Carrinho_de_vendas([ obj_produtos , quantidade ]) # TODO
+            #nova_venda = Vendas(cliente, data_hora, novo_carrinho) # TODO
+            #Vendas.cadastro_vendas.append(nova_venda) # TODO
         f.close()
         return None #
     
+    def nome_medicamento_pra_obj(nome):
+        for idx, med in enumerate(Medicamentos.lista_medicamentos):
+            if med.nome == nome:       
+                return Medicamentos.lista_medicamentos[idx]
+        raise
+
     def relatorio_de_estatistica_de_venda():
         lista_de_todas_as_vendas_de_hoje = list(lambda data: data == datetime.today(), [vendas.datetime.today() for vendas in Vendas.cadastro_vendas])
         carrinho_hoje = Vendas.unifica_lista_de_compras_em_uma_unica_lista(lista_de_todas_as_vendas_de_hoje)
@@ -192,9 +198,6 @@ class Vendas:
         total_carrinho = sum(lista_valores_totais)
         return quantos_medicamentos , quantos_tipos , total_carrinho  
             
-
-
-
     def quantidade_de_pessoas_e_vendas_realizadas(lista_de_vendas:list) -> (int,int):
         return ( len(set(lista_de_vendas)) , len(lista_de_vendas) )
         
@@ -228,8 +231,6 @@ class Vendas:
             case 2: return MedicFit
             case _: return False
 
-    def quantas_pessoas_foram_atendidas()->int:
-        pass # TODO
 
 
 
@@ -239,6 +240,7 @@ TESTE = 0
 if TESTE:
     import lendocsv
     lendocsv.lendo_csv()
+
     #Vendas.carrega_banco()
     print('\n\n VOCE ESTA RODANDO UM TESTE \n\n')
     eu = Cadastro('12345678901','Erick Teste', date(2000,1,1))
