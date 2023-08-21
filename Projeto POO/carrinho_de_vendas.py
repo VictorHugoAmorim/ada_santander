@@ -168,6 +168,12 @@ class Carrinho_de_vendas:
             num = ( int(num) if num.isdigit() else -1 )
         return False if num==0 else lista_de_remedio[num-1]
 
+    def remedio_mais_vendido_do_carrinho_e_quanto(lista:list) -> (Medicamentos, int):
+        quantidade = max(lista[1])
+        remedio_mais_vendido = lista[0].index(quantidade)
+        return (remedio_mais_vendido, quantidade)
+
+
 # Teste ----------------------------------------------------------
 
 TESTE = 0
