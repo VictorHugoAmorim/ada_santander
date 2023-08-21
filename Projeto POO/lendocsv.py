@@ -3,12 +3,12 @@ from laboratorio import *
 from medic_fit import *
 from medic_quimio import *
 
-#PATH = '.\csv\'
-PATH = 'Projeto POO/csv/'
+PATH = '.\csv\'
 
 def lendo_csv():
 
-    with open(rf'{PATH}labs.csv', 'r', encoding='utf-8') as arquivo_labs_csv:
+    with open(rf'{PATH}labs.csv', 'r', encoding='utf-8') as arquivo_labs_csv:=
+
         labs_csv = csv.DictReader(arquivo_labs_csv)
         for linha in labs_csv:
           linha['nome'] = Laboratorio(
@@ -19,6 +19,7 @@ def lendo_csv():
           linha['estado']
         )
     
+
     with open(rf'{PATH}fito.csv', 'r', encoding='utf-8') as arquivo_fito_csv:
         fito_csv = csv.DictReader(arquivo_fito_csv)
     
