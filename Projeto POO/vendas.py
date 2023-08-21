@@ -99,7 +99,8 @@ class Vendas:
                   """)
             match opcao:
                 case '1':
-                    novo_cliente = Cadastro(Cadastro.coleta_dados())
+                    novo_cliente = Cadastro()
+                    novo_cliente = novo_cliente.coleta_dados()
                     novo_cliente.armazena_dados()
                     cpf = novo_cliente.identificador
                 case _:
