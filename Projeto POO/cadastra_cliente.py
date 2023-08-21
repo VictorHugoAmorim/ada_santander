@@ -16,10 +16,8 @@ class Cadastro:
         self.identificador = identificador
         self.nome = nome
         self.data_nascimento = data_nascimento
-        if idade:
-            self.idade = idade
-        else:
-            self.idade = ((datetime.now().date() - self.data_nascimento) // 365).days
+        self.idade = idade
+
     def coleta_dados(self):
         """
         Nesta função será coletado a partir da exigencias de formatação específicas de cada método
@@ -28,7 +26,8 @@ class Cadastro:
         identificador = self.valida_identificador()
         nome = self.valida_nome()
         data_nascimento = self.valida_data()
-        return identificador, nome, data_nascimento
+        idade = self.calcula_idade(data_nascimento)
+        return identificador, nome, data_nascimento, idade
 
     def armazena_dados(self):
         """
@@ -38,9 +37,7 @@ class Cadastro:
         cadastros_clientes['identificador'].append(self.identificador)
         cadastros_clientes['nome'].append(self.nome)
         cadastros_clientes['data_nascimento'].append(self.data_nascimento)
-        idade = (datetime.now().date() - self.data_nascimento) // 365
-        idade = idade.days
-        cadastros_clientes['idade'].append(idade)
+        cadastros_clientes['idade'].append(self.idade)
         return cadastros_clientes
     
     @staticmethod
@@ -71,11 +68,17 @@ class Cadastro:
                 mes = int(input('Digite o mês do nascimento: [mm]\n'))
                 ano = int(input('Digite o ano do nascimento: [aaaa]\n'))
                 data_nascimento = date(ano, mes, dia)
-                print(type(data_nascimento))
                 break
             except:
                 print('Por favor, digite o formato correto')
         return data_nascimento
+    
+    def calcula_idade(self, data_nascimento):
+        data_nascimento = data_nascimento
+        idade = (datetime.now().date() - data_nascimento) // 365
+        idade = idade.days
+        print(idade)
+        return idade
 
     def altera_cliente(self, cadastros_clientes):
         cadastros_clientes = cadastros_clientes
