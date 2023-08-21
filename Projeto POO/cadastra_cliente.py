@@ -47,7 +47,7 @@ class Cadastro:
         """
         while True:
             identificador = input('Digite o CPF: [Apenas números - 11 dígitos]\n').strip()
-            if identificador.isdigit(): #and len(identificador) == TAMANHO_DO_CPF:
+            if identificador.isdigit() and len(identificador) == TAMANHO_DO_CPF:
                break
             else:
                 print('Formato de CPF inválido')
