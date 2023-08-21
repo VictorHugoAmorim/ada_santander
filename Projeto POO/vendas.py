@@ -4,6 +4,7 @@ from cadastra_cliente import Cadastro
 from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
 from datetime import date
+import csv
 
 IDADE_IDOSO = 65
 VALOR_COMPRA_GRANDE = 150
@@ -64,7 +65,7 @@ class Vendas:
 
     @valor_de_desconto.setter
     def valor_de_desconto(self, novo_valor):
-        if (novo_valor*self.porcentagem_de_desconto == novo_valor*DESCONTO_PORCENTAGEM_IDOSO and self.cliente.idade > IDADE_IDOSO) or (novo_valor*self.porcentagem_de_desconto == valor*DESCONTO_PORCENTAGEM_COMPRA_GRANDE and self._valor_total_sem_desconto > VALOR_COMPRA_GRANDE):
+        if (novo_valor*self.porcentagem_de_desconto == novo_valor*DESCONTO_PORCENTAGEM_IDOSO and self.cliente.idade > IDADE_IDOSO) or (novo_valor*self.porcentagem_de_desconto == novo_valor*DESCONTO_PORCENTAGEM_COMPRA_GRANDE and self._valor_total_sem_desconto > VALOR_COMPRA_GRANDE):
             self._valor_de_desconto = novo_valor
         else:
             print("ALERTA! Valor de desconto nao autorizado!")
