@@ -12,11 +12,14 @@ cadastros_clientes = {
 }
 class Cadastro:
 
-    def __init__(self, identificador: str = '', nome: str = '', data_nascimento: date = datetime.now().date()) -> None:
+    def __init__(self, identificador: str = '', nome: str = '', data_nascimento: date = datetime.now().date(), idade: int = 0) -> None:
         self.identificador = identificador
         self.nome = nome
         self.data_nascimento = data_nascimento
-
+        if idade:
+            self.idade = idade
+        else:
+            self.idade = ((datetime.now().date() - self.data_nascimento) // 365).days
     def coleta_dados(self):
         """
         Nesta função será coletado a partir da exigencias de formatação específicas de cada método
