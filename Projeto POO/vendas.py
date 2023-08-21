@@ -7,7 +7,7 @@ from datetime import date
 from medic_fit import MedicFit
 from medic_quimio import MedicQuimio
 import csv
-
+from functools import reduce
 
 IDADE_IDOSO = 65
 VALOR_COMPRA_GRANDE = 150
@@ -119,18 +119,18 @@ class Vendas:
         str_de_produtos = ','.join([e.nome for e in self.produtos_vendidos.carrinho[0]])
         str_de_precos = ','.join([str(e) for e in self.produtos_vendidos.carrinho[1]])
         try:
-            PATH = '.\csv\'
+            PATH = '.\csv\''
             f = open(f'{PATH}vendas.csv','a', encoding='utf-8')
         except:
             PATH = 'Projeto POO/csv/'
             f = open(f'{PATH}vendas.csv','a', encoding='utf-8')
-        f.write(f'\n{self.cliente.nome};{self.data_hora};{str_de_produtos};{str_de_precos}')
+        f.write(f'\n{self.cliente.identificador};{self.data_hora};{str_de_produtos};{str_de_precos}')
         f.close()
         return None
 
-    def carrega_banco(self) -> None:
+    def carrega_banco() -> None:
         try:
-            PATH = '.\csv\'
+            PATH = '.\csv\''
             f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
         except:
             PATH = 'Projeto POO/csv/'
@@ -185,7 +185,7 @@ class Vendas:
 
         """)  
 
-    def quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho:Carrinho_de_vendas.carrinho) -> (int,int,float):
+    def quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho) -> (int,int,float):
         quantos_medicamentos = sum(carrinho[1])
         quantos_tipos = len(carrinho[0])
         lista_valores_totais = [carrinho[0][i].valor * carrinho[1][i] for i in range(quantos_tipos)]
@@ -199,8 +199,8 @@ class Vendas:
         return ( len(set(lista_de_vendas)) , len(lista_de_vendas) )
         
     def unifica_lista_de_compras_em_uma_unica_lista(lista_compras:list) -> list:
-        lista_de_med = reduce( lambda array, ini: ini + array,  [ carrinho[0] for carrinho in lista_de_carrinhos ] , [])
-        lista_de_qtd = reduce( lambda array, ini: ini + array,  [ carrinho[1] for carrinho in lista_de_carrinhos ] , [])
+        lista_de_med = reduce( lambda array, ini: ini + array,  [ carrinho[0] for carrinho in lista_compras ] , [])
+        lista_de_qtd = reduce( lambda array, ini: ini + array,  [ carrinho[1] for carrinho in lista_compras ] , [])
         lista_return = [ [] , [] ]
         for i,med in enumerate(lista_de_med):
             if not med in lista_return[0]:

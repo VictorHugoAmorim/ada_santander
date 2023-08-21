@@ -4,7 +4,7 @@ from medicamentos import *
 from medic_quimio import *
 from medic_fit import *
 from laboratorio import *
-# from vendas import *
+from vendas import Vendas 
 from lendocsv import lendo_csv
 import time
 
@@ -148,7 +148,8 @@ def sys():
             
             elif user_choice == '3': # Iniciar Venda 
                 try:
-                    pass
+                    nova_venda = Vendas()
+                    nova_venda.iniciar_vendas()
                 except:
                     print('Impossível, nenhum cadastro encontrado!\n')      
             
@@ -175,7 +176,8 @@ def sys():
                     except:
                         print('Impossível, nenhum cadastro encontrado!\n')
                 elif user_choice_relatorio == '3':  # Listar estatísticas das vendas
-                    pass
+
+                    Vendas.relatorio_de_estatistica_de_venda()
                 else:
                     print("Opção inexistente")         
 
