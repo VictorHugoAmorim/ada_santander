@@ -153,6 +153,18 @@ class Vendas:
         lista_de_todas_as_vendas_de_hoje = list(lambda data: data == datetime.today(), [vendas.datetime.today() for vendas in Vendas.cadastro_vendas])
         lista_produtos_e_qtd_vendidas_hoje = Vendas.unifica_lista_de_compras_em_uma_unica_lista(lista_de_todas_as_vendas_de_hoje)
 
+        med,qtd_med = Carrinho_de_vendas.remedio_mais_vendido_do_carrinho_e_quanto(lista_produtos_e_qtd_vendidas_hoje)
+        qtd_pessoas, qtd_vendas = Vendas.quantidade_de_pessoas_e_vendas_realizadas(lista_de_todas_as_vendas_de_hoje)
+        print(f"""
+        O medicamento mais vendido foi: {med.nome}
+        Unidades vendidas: {qtd}
+        Valor arrecadado: R$ {(qtd * med.valor):.2f}
+        """)  
+
+
+    def quantidade_de_pessoas_e_vendas_realizadas(lista_de_vendas:list) -> (int,int):
+        return ( len(set(lista_de_vendas)) , len(lista_de_vendas) )
+        
     def unifica_lista_de_compras_em_uma_unica_lista(lista_compras:list) -> list:
         lista_de_med = reduce( lambda array, ini: ini + array,  [ carrinho[0] for carrinho in lista_de_carrinhos ] , [])
         lista_de_qtd = reduce( lambda array, ini: ini + array,  [ carrinho[1] for carrinho in lista_de_carrinhos ] , [])
@@ -166,13 +178,6 @@ class Vendas:
                 lista_return[1][idx]+=lista_de_qtd[i]
         return lista_return
     
-    def qual_e_quanto_foi_o_remedio_mais_vendido_dessa(classe:Medicamentos):
-
-        match opcao:
-            case 1:
-                eh_quimio = lambda remedio: isinstance(remedio, MedicQuimio)
-                lista_de_compras_de_hoje = list(eh_hoje, Vendas.cadastro_vendas.data_hora)
-
     def input_qual_classe_de_remedio() -> Medicamentos:
         opcao = 0
         while not opcao in range(1 , 3+1):
@@ -211,5 +216,4 @@ if TESTE:
     #print(eu.data_nascimento)
 
     nv = Vendas()
-    #print(nv)
     nv.iniciar_vendas()
