@@ -104,8 +104,8 @@ class Vendas:
                     cpf = novo_cliente.identificador
                 case _:
                      cpf = Cadastro.valida_identificador()
-        #return Cadastro._cliente_que_contenha_o_cpf(cpf)
-        return Cadastro('12345678901','Erick Teste', date(2000,1,1)) # para usar para teste enquanto a função acima for implementada
+        return Cadastro.pega_cliente_com_cpf(cpf)
+        #return Cadastro('12345678901','Erick Teste', date(2000,1,1)) # para usar para teste enquanto a função acima for implementada
 
     def verifica_porcentagem_de_desconto( idade:int , total_da_compra:float ) -> float:
         return DESCONTO_PORCENTAGEM_IDOSO if idade > IDADE_IDOSO else DESCONTO_PORCENTAGEM_COMPRA_GRANDE if total_da_compra > VALOR_COMPRA_GRANDE else 0
@@ -218,10 +218,6 @@ class Vendas:
     def unifica_lista_de_compras_em_uma_unica_lista(lista_de_vendas:list) -> list:
         lista_de_med = reduce( lambda array, ini: ini + array,  [ venda.produtos_vendidos.carrinho[0] for venda in lista_de_vendas ] , [])
         lista_de_qtd = reduce( lambda array, ini: ini + array,  [ venda.produtos_vendidos.carrinho[1] for venda in lista_de_vendas ] , [])
-
-
-        
-
         lista_return = [ [] , [] ]
         for i,med in enumerate(lista_de_med):
             if not med in lista_return[0]:
