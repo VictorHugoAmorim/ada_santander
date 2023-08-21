@@ -54,6 +54,54 @@ def sys():
                         print("Opção inexistente")
                 except:
                     print('Erro no cadastro do medicamento!\n')
+            #Alterar medicamento       
+            elif user_choice == '5': 
+                try:
+                    nome_medicamento = input('Digite o nome do medicamento que deseja alterar:\n')
+                    medicamento_alterar = None
+        
+                    for med in Medicamentos.lista_medicamentos:
+                        if med.nome.lower() == nome_medicamento.lower():
+                            medicamento_alterar = med
+                            break
+
+                    if medicamento_alterar:
+                        print(f"Editando medicamento: {medicamento_alterar.nome}")
+
+                    print('1 - Alterar nome do medicamento\n2 - Alterar principal composto do medicamento\n3 - Alterar laboratório do medicamento')
+                    print('4 - Alterar descrição do medicamento\n5 - Alterar valor do medicamento')
+                    
+                    user_choice_alterar = input('Por favor, escolha o número da ação desejada:\n ')
+
+                    if user_choice_alterar == '1':
+                        novo_nome = input(f"Novo nome ({medicamento_alterar.nome}): ")
+                        if novo_nome:
+                            medicamento_alterar.nome = novo_nome
+                            print("Nome do medicamento alterado")
+                    
+                    if user_choice_alterar == '2':
+                        novo_principal_composto = input(f"Novo principal composto ({medicamento_alterar.principal_composto}): ")
+                        if novo_principal_composto:
+                            medicamento_alterar.principal_composto = novo_principal_composto
+                            print ("Principal composto do medicamento alterado")
+                    
+                    if user_choice_alterar == '3':
+                        pass
+                    
+                    if user_choice_alterar == '4':
+                        nova_descrição = input(f"Nova descrição ({medicamento_alterar.descricao}): ")
+                        if nova_descrição:
+                            medicamento_alterar.descricao = nova_descrição
+                            print ("Descrição do medicamento alterada")
+                    
+                    if user_choice_alterar == '5':
+                        novo_valor = input(f"Novo valor do medicamento ({medicamento_alterar.valor}): ")
+                        if novo_valor:
+                            medicamento_alterar.valor = novo_valor
+                            print ("Valor do medicamento alterado")
+
+                except:
+                    print('Erro ao alterar medicamento!\n')
             #Listar medicamentos cadastrados
             elif user_choice == '6': 
                 try:
