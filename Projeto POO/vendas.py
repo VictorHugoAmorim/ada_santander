@@ -206,7 +206,7 @@ class Vendas:
         """)  
 
     def quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho) -> (int,int,float):
-        quantos_medicamentos = sum(int(element) for element in carrinho[1])
+        quantos_medicamentos = sum([int(element) for element in carrinho[1]])
         quantos_tipos = len(carrinho[0])
         lista_valores_totais = [float(carrinho[0][i].valor) * int(carrinho[1][i]) for i in range(quantos_tipos)]
         total_carrinho = sum(lista_valores_totais)
@@ -225,7 +225,7 @@ class Vendas:
                 lista_return[1].append(lista_de_qtd[i])
             else:
                 idx = lista_return[0].index(med)
-                lista_return[1][idx]+=lista_de_qtd[i]
+                lista_return[1][idx]=str (int(lista_de_qtd[i])+int(lista_return[1][idx]))
         return lista_return
     
     def input_qual_classe_de_remedio() -> Medicamentos:
