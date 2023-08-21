@@ -119,10 +119,10 @@ class Vendas:
         str_de_produtos = ','.join([e.nome for e in self.produtos_vendidos.carrinho[0]])
         str_de_precos = ','.join([str(e) for e in self.produtos_vendidos.carrinho[1]])
         try:
-            PATH = '.\csv\''
+            PATH = 'Projeto POO/csv/'
             f = open(f'{PATH}vendas.csv','a', encoding='utf-8')
         except:
-            PATH = 'Projeto POO/csv/'
+            PATH = '.\csv\''
             f = open(f'{PATH}vendas.csv','a', encoding='utf-8')
         f.write(f'\n{self.cliente.identificador};{self.data_hora};{str_de_produtos};{str_de_precos}')
         f.close()
@@ -130,16 +130,17 @@ class Vendas:
 
     def carrega_banco() -> None:
         try:
-            PATH = '.\csv\''
-            f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
-        except:
             PATH = 'Projeto POO/csv/'
             f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
+        except:
+            PATH = '.\csv\''
+            f = open(f'{PATH}vendas.csv','r', encoding='utf-8')
+
         conteudo = csv.DictReader(f, delimiter=";")
         for linha in conteudo:
             cpf = linha['IDENTIFICADOR']
             cliente = Vendas.pega_cliente_com_cpf(cpf) # TODO
-            data_hora = linha['DATA_HORA']
+            data_hora = datetime.strptime(linha['DATA_HORA'],"%Y-%m-%d %H:%M:%S.%f").date()
             lista_produtos = linha['PRODUTOS'].split(',')
             obj_produtos = [ Vendas.nome_medicamento_pra_obj(nome_produtos) for nome_produtos in lista_produtos ]
             quantidade = linha['QUANTIDADE'].split(',')
@@ -165,8 +166,12 @@ class Vendas:
         raise
 
     def relatorio_de_estatistica_de_venda():
-        lista_de_todas_as_vendas_de_hoje = list(lambda data: data == datetime.today(), [vendas.datetime.today() for vendas in Vendas.cadastro_vendas])
+        lista_de_todas_as_vendas_de_hoje = [vendas for vendas in Vendas.cadastro_vendas if vendas.data_hora == datetime.today().date()]
         carrinho_hoje = Vendas.unifica_lista_de_compras_em_uma_unica_lista(lista_de_todas_as_vendas_de_hoje)
+
+        if not carrinho_hoje:
+            print('Nao teve vendas hoje')
+            return
 
         med,qtd_med = Carrinho_de_vendas.remedio_mais_vendido_do_carrinho_e_quanto(carrinho_hoje)
         qtd_pessoas, qtd_vendas = Vendas.quantidade_de_pessoas_e_vendas_realizadas(lista_de_todas_as_vendas_de_hoje)
@@ -183,7 +188,7 @@ class Vendas:
         
         O medicamento mais vendido foi: {med.nome}
         Unidades vendidas: {qtd_med}
-        Valor arrecadado: R$ {(qtd_med * med.valor):.2f}
+        Valor arrecadado: R$ {(int(qtd_med) * med.valor):.2f}
 
         Houve um numero total de vendas de: {qtd_vendas}
         Com um numero de clientes diferentes de: {qtd_pessoas}
@@ -201,18 +206,22 @@ class Vendas:
         """)  
 
     def quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho) -> (int,int,float):
-        quantos_medicamentos = sum(carrinho[1])
+        quantos_medicamentos = sum(int(element) for element in carrinho[1])
         quantos_tipos = len(carrinho[0])
-        lista_valores_totais = [carrinho[0][i].valor * carrinho[1][i] for i in range(quantos_tipos)]
+        lista_valores_totais = [float(carrinho[0][i].valor) * int(carrinho[1][i]) for i in range(quantos_tipos)]
         total_carrinho = sum(lista_valores_totais)
         return quantos_medicamentos , quantos_tipos , total_carrinho  
             
     def quantidade_de_pessoas_e_vendas_realizadas(lista_de_vendas:list) -> (int,int):
         return ( len(set(lista_de_vendas)) , len(lista_de_vendas) )
         
-    def unifica_lista_de_compras_em_uma_unica_lista(lista_compras:list) -> list:
-        lista_de_med = reduce( lambda array, ini: ini + array,  [ carrinho[0] for carrinho in lista_compras ] , [])
-        lista_de_qtd = reduce( lambda array, ini: ini + array,  [ carrinho[1] for carrinho in lista_compras ] , [])
+    def unifica_lista_de_compras_em_uma_unica_lista(lista_de_vendas:list) -> list:
+        lista_de_med = reduce( lambda array, ini: ini + array,  [ venda.produtos_vendidos.carrinho[0] for venda in lista_de_vendas ] , [])
+        lista_de_qtd = reduce( lambda array, ini: ini + array,  [ venda.produtos_vendidos.carrinho[1] for venda in lista_de_vendas ] , [])
+
+
+        
+
         lista_return = [ [] , [] ]
         for i,med in enumerate(lista_de_med):
             if not med in lista_return[0]:

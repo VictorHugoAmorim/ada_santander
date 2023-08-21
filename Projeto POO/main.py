@@ -10,6 +10,7 @@ import time
 
 def sys():
     lendo_csv()
+    Vendas.carrega_banco()
     while True:
         print('#'*30,'MENU PRINCIPAL','#'*30,'\n')
         print('1- Clientes (Cadastrar / Alterar)\n2- Medicamentos (Cadastrar / Alterar / Buscar)\n3- Iniciar venda',sep='')

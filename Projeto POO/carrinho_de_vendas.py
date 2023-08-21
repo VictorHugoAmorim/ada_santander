@@ -168,17 +168,22 @@ class Carrinho_de_vendas:
             num = ( int(num) if num.isdigit() else -1 )
         return False if num==0 else lista_de_remedio[num-1]
 
-    def remedio_mais_vendido_do_carrinho_e_quanto(lista:list) -> (Medicamentos, int):
-        quantidade = max(lista[1])
-        remedio_mais_vendido = lista[0].index(quantidade)
+    def remedio_mais_vendido_do_carrinho_e_quanto(carrinho) -> (Medicamentos, int):
+        quantidade = max(carrinho[1])
+        idx = carrinho[1].index(str(quantidade))
+        remedio_mais_vendido = carrinho[0][idx]
         return (remedio_mais_vendido, quantidade)
 
     def filtrar_carrinho_por_classe(carrinho, classe:classmethod):
         carrinho_filtrado = [ [ ] , [ ] ]
-        for med in carrinho[0]:
+        lista_med = []
+        lista_qtd = []
+        for i,med in enumerate(carrinho[0]):
             if isinstance(med, classe):
-                carrinho_filtrado[0].append(med)
-                carrinho_filtrado[1].append(carrinho[1])
+                lista_med.append(carrinho[0][i])
+                lista_qtd.append(carrinho[1][i])
+        carrinho_filtrado[0]=lista_med
+        carrinho_filtrado[1]=lista_qtd
         return carrinho_filtrado
     
 # Teste ----------------------------------------------------------
