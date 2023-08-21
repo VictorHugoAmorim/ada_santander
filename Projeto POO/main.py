@@ -23,10 +23,11 @@ def sys():
             #Cadastrar clientes
             if user_choice == '1': 
                 cadastro_instance = Cadastro()
-                identificador, nome, data_nascimento = cadastro_instance.coleta_dados()
+                identificador, nome, data_nascimento, idade = cadastro_instance.coleta_dados()
                 cadastro_instance.identificador = identificador
                 cadastro_instance.nome = nome
                 cadastro_instance.data_nascimento = data_nascimento
+                cadastro_instance.idade = idade
                 cadastros_clientes = cadastro_instance.armazena_dados()
             elif user_choice == '2': #
                 try:

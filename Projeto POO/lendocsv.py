@@ -3,11 +3,11 @@ from laboratorio import *
 from medic_fit import *
 from medic_quimio import *
 
-PATH = '.\csv\'
+PATH = '.\csv'
 
 def lendo_csv():
 
-    with open(rf'{PATH}labs.csv', 'r', encoding='utf-8') as arquivo_labs_csv:=
+    with open(rf'{PATH}\labs.csv', 'r', encoding='utf-8') as arquivo_labs_csv:
 
         labs_csv = csv.DictReader(arquivo_labs_csv)
         for linha in labs_csv:
@@ -20,7 +20,7 @@ def lendo_csv():
         )
     
 
-    with open(rf'{PATH}fito.csv', 'r', encoding='utf-8') as arquivo_fito_csv:
+    with open(rf'{PATH}\fito.csv', 'r', encoding='utf-8') as arquivo_fito_csv:
         fito_csv = csv.DictReader(arquivo_fito_csv)
     
         for linha in fito_csv:
@@ -33,7 +33,7 @@ def lendo_csv():
                 valor=float(linha['valor'])
             )
     
-    with open(rf'{PATH}quimio.csv', 'r', encoding='utf-8') as arquivo_quimio_csv:
+    with open(rf'{PATH}\quimio.csv', 'r', encoding='utf-8') as arquivo_quimio_csv:
         quimio_csv = csv.DictReader(arquivo_quimio_csv)
     
         for linha in quimio_csv:
