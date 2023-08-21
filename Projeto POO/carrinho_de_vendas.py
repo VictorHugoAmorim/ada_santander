@@ -173,7 +173,14 @@ class Carrinho_de_vendas:
         remedio_mais_vendido = lista[0].index(quantidade)
         return (remedio_mais_vendido, quantidade)
 
-
+    def filtrar_carrinho_por_classe(carrinho, classe:classmethod):
+        carrinho_filtrado = [ [ ] , [ ] ]
+        for med in carrinho[0]:
+            if isinstance(med, classe):
+                carrinho_filtrado[0].append(med)
+                carrinho_filtrado[1].append(carrinho[1])
+        return carrinho_filtrado
+    
 # Teste ----------------------------------------------------------
 
 TESTE = 0

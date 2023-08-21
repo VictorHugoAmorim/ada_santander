@@ -151,15 +151,48 @@ class Vendas:
     
     def relatorio_de_estatistica_de_venda():
         lista_de_todas_as_vendas_de_hoje = list(lambda data: data == datetime.today(), [vendas.datetime.today() for vendas in Vendas.cadastro_vendas])
-        lista_produtos_e_qtd_vendidas_hoje = Vendas.unifica_lista_de_compras_em_uma_unica_lista(lista_de_todas_as_vendas_de_hoje)
+        carrinho_hoje = Vendas.unifica_lista_de_compras_em_uma_unica_lista(lista_de_todas_as_vendas_de_hoje)
 
-        med,qtd_med = Carrinho_de_vendas.remedio_mais_vendido_do_carrinho_e_quanto(lista_produtos_e_qtd_vendidas_hoje)
+        med,qtd_med = Carrinho_de_vendas.remedio_mais_vendido_do_carrinho_e_quanto(carrinho_hoje)
         qtd_pessoas, qtd_vendas = Vendas.quantidade_de_pessoas_e_vendas_realizadas(lista_de_todas_as_vendas_de_hoje)
+        
+        carrinho_quimio = Carrinho_de_vendas.filtrar_carrinho_por_classe(carrinho_hoje, MedicQuimio)
+        quantos_med_quimio, quantos_tipos_quimio, total_quimio = Vendas.quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho_quimio)
+
+        carrinho_fit = Carrinho_de_vendas.filtrar_carrinho_por_classe(carrinho_hoje, MedicFit)
+        quantos_med_fit, quantos_tipos_fit, total_fit = Vendas.quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho_fit)
+
         print(f"""
+              
+        ---------------- ESTATISTICA DE VENDA ----------------
+        
         O medicamento mais vendido foi: {med.nome}
-        Unidades vendidas: {qtd}
-        Valor arrecadado: R$ {(qtd * med.valor):.2f}
+        Unidades vendidas: {qtd_med}
+        Valor arrecadado: R$ {(qtd_med * med.valor):.2f}
+
+        Houve um numero total de vendas de: {qtd_vendas}
+        Com um numero de clientes diferentes de: {qtd_pessoas}
+
+        MEDICAMENTO QUIMIOTERÁPICO
+        Total de medicamentos vendidos: {quantos_med_quimio}
+        Total de tipos diferentes de medicamentos vendidos: {quantos_tipos_quimio}
+        Total arrecadado: R$ {total_quimio:.2f}
+
+        MEDICAMENTO FITOTERÁPICO
+        Total de medicamentos vendidos: {quantos_med_fit}
+        Total de tipos diferentes de medicamentos vendidos: {quantos_tipos_fit}
+        Total arrecadado: R$ {total_fit:.2f}
+
         """)  
+
+    def quantos_medicamentos_e_quantos_tipos_e_valor_no_carrinho(carrinho:Carrinho_de_vendas.carrinho) -> (int,int,float):
+        quantos_medicamentos = sum(carrinho[1])
+        quantos_tipos = len(carrinho[0])
+        lista_valores_totais = [carrinho[0][i].valor * carrinho[1][i] for i in range(quantos_tipos)]
+        total_carrinho = sum(lista_valores_totais)
+        return quantos_medicamentos , quantos_tipos , total_carrinho  
+            
+
 
 
     def quantidade_de_pessoas_e_vendas_realizadas(lista_de_vendas:list) -> (int,int):
