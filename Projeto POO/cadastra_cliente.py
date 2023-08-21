@@ -88,8 +88,8 @@ class Cadastro:
             if cliente_escolhido in cadastros_clientes['identificador']:
                 idx = cadastros_clientes['identificador'].index(cliente_escolhido)
                 print(f'cliente {cadastros_clientes["nome"][idx]} encontrado')
-                escolha_alteracao = input('Escolha qual campo deseja alterar:\n1-CPF:\n2-Nome:\n3-Data de Nascimento:\n4-Sair:\n').strip()
-                if escolha_alteracao == '4':
+                escolha_alteracao = input('Escolha qual campo deseja alterar:\n1-CPF:\n2-Nome:\n3-Data de Nascimento:\n0-Sair:\n').strip()
+                if escolha_alteracao == '0':
                     break
                 elif escolha_alteracao == '1':
                     novo_cpf = self.valida_identificador()
