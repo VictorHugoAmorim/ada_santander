@@ -4,7 +4,10 @@ from cadastra_cliente import Cadastro
 from medicamentos import Medicamentos
 from carrinho_de_vendas import Carrinho_de_vendas
 from datetime import date
+from medic_fit import MedicFit
+from medic_quimio import MedicQuimio
 import csv
+
 
 IDADE_IDOSO = 65
 VALOR_COMPRA_GRANDE = 150
@@ -20,7 +23,7 @@ class Vendas:
     def __init__(self, cliente:Cadastro=Cadastro(), data_hora:datetime=datetime.now(), produtos_vendidos:Carrinho_de_vendas=Carrinho_de_vendas()) -> None:
         self.cliente = cliente
         self.data_hora = data_hora
-        self.produtos_vendidos = produtos_vendidos
+        self.produtos_vendidos = produtos_vendidos # [ [obj_Med_A , obj_Med_B , ... ] , [ 1 , 3 , ... ] ]
         self.atualiza_valores()
         return None
 
@@ -144,7 +147,53 @@ class Vendas:
             # nova_venda = Vendas(cliente, data_hora, novo_carrinho) # TODO
             # cadastro_vendas.append(nova_venda) # TODO
         f.close()
-        return None
+        return None #
+    
+    def relatorio_de_estatistica_de_venda():
+        lista_de_todas_as_vendas_de_hoje = list(lambda data: data == datetime.today(), [vendas.datetime.today() for vendas in Vendas.cadastro_vendas])
+        lista_produtos_e_qtd_vendidas_hoje = Vendas.unifica_lista_de_compras_em_uma_unica_lista(lista_de_todas_as_vendas_de_hoje)
+
+    def unifica_lista_de_compras_em_uma_unica_lista(lista_compras:list) -> list:
+        lista_de_med = reduce( lambda array, ini: ini + array,  [ carrinho[0] for carrinho in lista_de_carrinhos ] , [])
+        lista_de_qtd = reduce( lambda array, ini: ini + array,  [ carrinho[1] for carrinho in lista_de_carrinhos ] , [])
+        lista_return = [ [] , [] ]
+        for i,med in enumerate(lista_de_med):
+            if not med in lista_return[0]:
+                lista_return[0].append(med)
+                lista_return[1].append(lista_de_qtd[i])
+            else:
+                idx = lista_return[0].index(med)
+                lista_return[1][idx]+=lista_de_qtd[i]
+        return lista_return
+    
+    def qual_e_quanto_foi_o_remedio_mais_vendido_dessa(classe:Medicamentos):
+
+        match opcao:
+            case 1:
+                eh_quimio = lambda remedio: isinstance(remedio, MedicQuimio)
+                lista_de_compras_de_hoje = list(eh_hoje, Vendas.cadastro_vendas.data_hora)
+
+    def input_qual_classe_de_remedio() -> Medicamentos:
+        opcao = 0
+        while not opcao in range(1 , 3+1):
+            input("""
+            Qual Classe de remedio gostaria de ver os relatorios?
+            1 - Todos
+            2 - Quimioterápicos
+            3 - Fitoterápicos
+            
+            Digite o numero correspondente: """).strip()
+            if opcao.isdigit():
+                opcao = int(opcao)
+        match opcao:
+            case 1: return MedicQuimio
+            case 2: return MedicFit
+            case _: return False
+
+    def quantas_pessoas_foram_atendidas()->int:
+        pass # TODO
+
+
 
 # Teste ----------------------------------------------------------
 
