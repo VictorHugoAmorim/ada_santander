@@ -148,11 +148,9 @@ def sys():
                         print("Opção inexistente")                  
             
             elif user_choice == '3': # Iniciar Venda 
-                try:
                     nova_venda = Vendas()
                     nova_venda.iniciar_vendas()
-                except:
-                    print('Impossível, nenhum cadastro encontrado!\n')      
+   
             
             elif user_choice == '4': # Emitir Relatórios
                 print('1 - Listar clientes\n2 - Listar medicamentos\n3 - Estatísticas das vendas')
@@ -177,10 +175,8 @@ def sys():
                     except:
                         print('Impossível, nenhum cadastro encontrado!\n')
                 elif user_choice_relatorio == '3':  # Listar estatísticas das vendas
-
                     Vendas.relatorio_de_estatistica_de_venda()
-                else:
-                    print("Opção inexistente")         
+
 
 if __name__ == '__main__':
     sys()
