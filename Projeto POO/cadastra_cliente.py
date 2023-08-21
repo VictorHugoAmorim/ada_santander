@@ -47,7 +47,7 @@ class Cadastro:
         """
         while True:
             identificador = input('Digite o CPF: [Apenas números - 11 dígitos]\n').strip()
-            if identificador.isdigit(): #and len(identificador) == TAMANHO_DO_CPF:
+            if identificador.isdigit() and len(identificador) == TAMANHO_DO_CPF:
                break
             else:
                 print('Formato de CPF inválido')
@@ -102,6 +102,7 @@ class Cadastro:
                 elif escolha_alteracao == '3':
                     nova_data = self.valida_data()
                     cadastros_clientes['data_nascimento'][idx] = nova_data
+                    cadastros_clientes['idade'][idx] = self.calcula_idade(nova_data)
                     print(f'Cliente {cadastros_clientes["nome"][idx]} agora possui a data de nascimento: {cadastros_clientes["data_nascimento"][idx]}')
             else:
                 if len(cliente_escolhido) > 0:
