@@ -47,7 +47,7 @@ class Cadastro:
         """
         while True:
             identificador = input('Digite o CPF: [Apenas números - 11 dígitos]\n').strip()
-            if identificador.isdigit() and len(identificador) == TAMANHO_DO_CPF:
+            if identificador.isdigit(): # and len(identificador) == TAMANHO_DO_CPF:
                break
             else:
                 print('Formato de CPF inválido')
@@ -121,13 +121,22 @@ class Cadastro:
             print(f"nome: {cadastros_clientes['nome'][i]}")
             print(f"data de nascimento: {cadastros_clientes['data_nascimento'][i]}")
             print(f'Idade : {cadastros_clientes["idade"][i]} anos\n')
+    
+    @staticmethod
+    def coleta_idade(cadastros_clientes):
+        cpf = input('Digite o CPF:\n')
+        idx = cadastros_clientes['identificador'].index(cpf)
+        idade = int({cadastros_clientes["idade"][idx]}.pop())
+        return idade
 
 if __name__ == "__main__":
     cadastro_instance = Cadastro()
-    identificador, nome, data_nascimento = cadastro_instance.coleta_dados()
+    identificador, nome, data_nascimento, idade = cadastro_instance.coleta_dados()
     cadastro_instance.identificador = identificador
     cadastro_instance.nome = nome
     cadastro_instance.data_nascimento = data_nascimento
+    cadastro_instance.idade = idade
     cadastros_clientes = cadastro_instance.armazena_dados()
     print(cadastros_clientes)
-    cadastro_instance.altera_cliente(cadastros_clientes)
+    cadastro_instance.coleta_idade(cadastros_clientes)
+    #cadastro_instance.altera_cliente(cadastros_clientes)
