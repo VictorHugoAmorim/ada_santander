@@ -56,7 +56,7 @@ def exec():
     # Convertendo a coluna Quantidade para int
     material_didatico['quantidade'] = material_didatico['quantidade'].astype(int)
     # Para visualizar o resultado, descomentar abaixo:
-    material_didatico.to_csv('mat_didatico.csv', index=False)
+    # material_didatico.to_csv('mat_didatico.csv', index=False)
 
     # Merge
     escolas_quantidade_md = pd.merge(escolas, material_didatico, how='left', on='id')
@@ -68,4 +68,5 @@ def exec():
 if __name__ == '__main__':
     df = exec()
     print(df.head())
+    #Apenas para visualização:
     df.to_csv('resultado.csv', index=False)
