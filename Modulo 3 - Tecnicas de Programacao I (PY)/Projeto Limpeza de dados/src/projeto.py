@@ -47,6 +47,7 @@ def exec():
         material_didatico = import_csv(DIR_MATERIAL_DIDATICO_2)
         sub_prefeituras = import_csv(DIR_SUB_PREFEITURAS_2)
 
+    ###################################################################################################
     #Tratando material_didatico.csv  
     
     # Convertendo a coluna Quantidade para o tipo númérico. Os que não puderem ser convertidos, serão NaN.
@@ -59,14 +60,15 @@ def exec():
     material_didatico['quantidade'] = material_didatico['quantidade'].astype(int)
     # Para visualizar o resultado, descomentar abaixo:
     # material_didatico.to_csv('mat_didatico.csv', index=False)
-
+    
+    ###################################################################################################
     # Tratando escolas.csv
 
-    #Latitude e Longitude com 5 casas decimais
+    #Latitude e Longitude com 5 casas decimais (9 caracteres no total)
     escolas['lat'] = escolas['lat'].str[:9]
     escolas['lon'] = escolas['lon'].str[:9]
     # Para visualizar o resultado, descomentar abaixo:
-    print(escolas)
+    # print(escolas)
     # escolas.to_csv('escolas_print.csv', index=False)
 
 
