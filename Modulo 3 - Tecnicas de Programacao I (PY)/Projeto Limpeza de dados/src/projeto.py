@@ -10,6 +10,10 @@ DIR_ESCOLAS = r'..\arquivos csv\escolas.csv'
 DIR_MATERIAL_DIDATICO = r'..\arquivos csv\material_didatico.csv'
 DIR_SUB_PREFEITURAS = r'..\arquivos csv\subprefeituras.csv'
 
+DIR_ESCOLAS_2 = r'arquivos csv/escolas.csv'
+DIR_MATERIAL_DIDATICO_2 = r'arquivos csv/material_didatico.csv'
+DIR_SUB_PREFEITURAS_2 = r'arquivos csv/subprefeituras.csv'
+
 #Importação com tratamento de colunas
 def import_csv(arq:str) -> pd.DataFrame: 
     arquivo = pd.read_csv(arq)
@@ -33,10 +37,16 @@ def define_tipo(x):
         None
 
 def exec():
+    try:
     # import
-    escolas = import_csv(DIR_ESCOLAS)
-    material_didatico = import_csv(DIR_MATERIAL_DIDATICO)
-    sub_prefeituras = import_csv(DIR_SUB_PREFEITURAS)
+        escolas = import_csv(DIR_ESCOLAS)
+        material_didatico = import_csv(DIR_MATERIAL_DIDATICO)
+        sub_prefeituras = import_csv(DIR_SUB_PREFEITURAS)
+    except:
+        escolas = import_csv(DIR_ESCOLAS_2)
+        material_didatico = import_csv(DIR_MATERIAL_DIDATICO_2)
+        sub_prefeituras = import_csv(DIR_SUB_PREFEITURAS_2)
+        
     # Merge
     escolas_quantidade_md = pd.merge(escolas, material_didatico, how='left', on='id')
     escolas_quantidade_md['tipo'] = escolas_quantidade_md['escolas_postos'].apply(lambda x: define_tipo(x))
