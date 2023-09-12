@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from itertools import permutations
 from haversine import haversine
+from matplotlib import pyplot as plt
 
 class melhor_rota:
 
@@ -14,8 +15,10 @@ class melhor_rota:
         self._lista_de_distancias_por_rota = self.lista_de_distancias_por_rota
         self._menor_distancia = self.menor_distancia
         self._melhor_rota = self.melhor_rota
-        self._sequencia_de_coordenadas = self.sequencia_de_coordenadas
         self._dataframe_ordenada = self.dataframe_ordenada
+        plt.xlabel("Latitude") 
+        plt.ylabel("Longitude") 
+
         #TODO imagem plot do percurso
 
     @property
@@ -59,13 +62,12 @@ class melhor_rota:
         index = self._lista_de_distancias_por_rota.index( self._menor_distancia )
         return self._lista_de_rotas_possiveis[index]
 
-    @property
-    def sequencia_de_coordenadas(self)->list:
+    def sequencia_de_coordenadas(self , rota_lista_idx:list)->list:
         lista = list()
-        for idx in self._melhor_rota:
+        for idx in rota_lista_idx:
             lat = float(self.dataframe.at[idx,"lat"].replace(",","."))
             lon = float(self.dataframe.at[idx,"lon"].replace(",","."))
-            coord = ( (lat,lon) )
+            coord = [ lat , lon ]
             lista.append(coord)
         return lista
 
@@ -78,28 +80,47 @@ class melhor_rota:
         dataframe_final = dataframe_final.sort_values("ordem_entrega")
         return dataframe_final
 
+    def plot_escolas(self,rota_lista_de_index:list=[]):
+        plt.title("Coordenadas das escolas") 
+        for i in self.lista_index:
+            x = float(self.dataframe.at[i,"lat"].replace(",","."))
+            y = float(self.dataframe.at[i,"lon"].replace(",","."))
+            plt.plot( x , y ,'ro')
+        if rota_lista_de_index:
+            lista_coordenadas = self.sequencia_de_coordenadas(rota_lista_de_index)
+            for i in range(len(lista_coordenadas)-1):
+                p1 = list(lista_coordenadas[i])
+                p2 = list(lista_coordenadas[i+1])
+
+                o1 = [ p1[0] , p2[0] ]
+                o2 = [ p1[1] , p2[1] ]
+
+                plt.plot( o1 , o2 )
+        return plt.show()
 
 # teste
-if (False):
+if (True):
     df = pd.read_csv(r'resultado.csv')
     df = df.drop((range(3,150)))
     print('df.index')
     print(df.index)
     rotas = melhor_rota(df)
-    print('dataframe')
-    print(rotas.dataframe)
-    print('\n\n tabela_de_distancia')
-    print(rotas.tabela_de_distancia)
-    print('\n\n lista_de_rotas_possiveis')
-    print(rotas.lista_de_rotas_possiveis)
-    print('\n\n lista_de_distancias_por_rota')
-    print(rotas.lista_de_distancias_por_rota)
-    print('\n\n melhor_rota')
-    print(rotas.melhor_rota)
-    print('\n\n menor_distancia')
-    print(rotas.menor_distancia)
-    print('\n\n sequencia_de_coordenadas')
-    print(rotas.sequencia_de_coordenadas)
-    print('\n\n dataframe_ordenada')
-    print(rotas.dataframe_ordenada)
-
+    #print('dataframe')
+    #print(rotas.dataframe)
+    #print('\n\n tabela_de_distancia')
+    #print(rotas.tabela_de_distancia)
+    #print('\n\n lista_de_rotas_possiveis')
+    #print(rotas.lista_de_rotas_possiveis)
+    #print('\n\n lista_de_distancias_por_rota')
+    #print(rotas.lista_de_distancias_por_rota)
+    #print('\n\n melhor_rota')
+    #print(rotas.melhor_rota)
+    #print('\n\n menor_distancia')
+    #print(rotas.menor_distancia)
+    #print('\n\n sequencia_de_coordenadas')
+    #print(rotas.sequencia_de_coordenadas(rotas.melhor_rota))
+    #print('\n\n dataframe_ordenada')
+    #print(rotas.dataframe_ordenada)
+    #print('\n\n plot_escolas')
+    #rotas.plot_escolas()
+    rotas.plot_escolas(rotas.melhor_rota)
