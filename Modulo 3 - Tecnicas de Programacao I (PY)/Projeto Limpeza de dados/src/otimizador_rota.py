@@ -15,8 +15,7 @@ class rotas:
         self._lista_de_distancias_por_rota = self.lista_de_distancias_por_rota
         self._melhor_rota = self.melhor_rota
         self._pior_rota = self.pior_rota
-        plt.xlabel("Latitude") 
-        plt.ylabel("Longitude") 
+
 
 
     @property
@@ -83,7 +82,9 @@ class rotas:
         return dataframe_final
 
     def plot_rota(self,rota_lista_de_index:list=[]):
-        plt.title("Coordenadas das escolas") 
+        plt.title("Coordenadas das escolas")
+        plt.xlabel("Latitude") 
+        plt.ylabel("Longitude") 
         for i in self.lista_index:
             x = float(self.dataframe.at[i,"lat"].replace(",","."))
             y = float(self.dataframe.at[i,"lon"].replace(",","."))
@@ -100,11 +101,12 @@ class rotas:
                 plt.plot( o1 , o2 )
         return plt.show()
 
+
 # teste
 if (False):
     # 1. Teste
-    df = pd.read_csv(r'resultado.csv')
-    df = df.drop((range(3,150))) # Convem reduzir o tamanho da tabela
+    df = pd.read_csv(r'rota_a_ser_seguida.csv')
+    df = df.drop((range(2,125))) # Convem reduzir o tamanho da tabela
     print('df.index')
     print(df.index)
     rota = rotas(df)
@@ -130,20 +132,14 @@ if (False):
     rota.plot_rota(rota.melhor_rota)
 
     # 1.2 Pior Rota
-    print('\n\n pior_rota')
-    print(rota.pior_rota)
-    print('\n\n distancia')
-    print(rota.distancia(rota.pior_rota))
-    print('\n\n sequencia_de_coordenadas')
-    print(rota.sequencia_de_coordenadas(rota.pior_rota))
-    print('\n\n ordenar_por')
-    print(rota.ordenar_por(rota.pior_rota))
-    print('\n\n plot_rota')
+    #print('\n\n pior_rota')
+    #print(rota.pior_rota)
+    #print('\n\n distancia')
+    #print(rota.distancia(rota.pior_rota))
+    #print('\n\n sequencia_de_coordenadas')
+    #print(rota.sequencia_de_coordenadas(rota.pior_rota))
+    #print('\n\n ordenar_por')
+    #print(rota.ordenar_por(rota.pior_rota))
+    #print('\n\n plot_rota')
     rota.plot_rota(rota.pior_rota)
 
-    # 2 Exemplo de aplicação no Projeto
-
-    """
-    df_otimizado = rotas( df_projeto )
-    df_otimizado.ordenar_por( df_otimizado.melhor_rota )
-    """
