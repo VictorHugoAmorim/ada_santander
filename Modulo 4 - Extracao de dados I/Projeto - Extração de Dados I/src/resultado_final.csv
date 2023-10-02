@@ -1,0 +1,10 @@
+ano,quantidade,mes_ano,quantidade,dia_mes_ano,quantidade,fonte,quantidade,autor,quantidade,ano,mes,dia,palavra_chave,quantidade
+2023.0,5.0,2023-09,5.0,2023-09-27,1.0,R7.com,2.0,Redação Terra Você,1.0,2023,9,27,sequenciamento,0
+,,,,2023-09-28,1.0,Terra.com.br,1.0,Do R7,1.0,2023,9,28,sequenciamento,0
+,,,,2023-09-29,3.0,Catracalivre.com.br,1.0,Da Agência Brasil,1.0,2023,9,29,sequenciamento,0
+,,,,,,Megacurioso.com.br,1.0,Redação,1.0,2023,9,27,terapia,0
+,,,,,,,,Pedro Freitas,1.0,2023,9,28,terapia,0
+,,,,,,,,,,2023,9,29,terapia,0
+,,,,,,,,,,2023,9,27,doença,1
+,,,,,,,,,,2023,9,28,doença,1
+,,,,,,,,,,2023,9,29,doença,2
