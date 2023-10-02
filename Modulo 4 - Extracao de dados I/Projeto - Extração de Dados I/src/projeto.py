@@ -20,21 +20,43 @@ class GetNewsApi:
     def data_transform(self, json_file):
         df = self.spark.createDataFrame(pd.json_normalize(json_file['articles']))
         df = df.withColumn("publishedAt", to_timestamp(df["publishedAt"], 'yyyy-MM-dd\'T\'HH:mm:ss\'Z\''))
+        df = df.na.fill("desconhecido")
         df.createOrReplaceTempView('df')
         return df
+    
+    def relevance_criteria(self, df):
+        table = self.spark.sql(
+            '''
+            SELECT 
+                *
+            FROM 
+                df
+            WHERE
+                author != 'desconhecido'
+                AND title like '%genômica%' or  title like '%DNA%' or  title like '%doença%'
+                AND description like '%genômica%' or  description like '%DNA%' and  description like '%doença%'
+                AND content like '%genômica%' or  content like '%DNA%' and  content like '%doença%'
+            ORDER BY
+                publishedAt desc
 
-    def save_batch(self, df) -> None:
-        df.write.parquet('file.parquet')
+            '''
+        )
+        table.createOrReplaceTempView('table')
+        return table
+
+    def save_batch(self, table) -> None:
+        table.write.parquet('news.parquet', mode='overwrite')
 
 
     def run(self):
         json_file = self.api_request()
         df = self.data_transform(json_file)
-        self.save_batch(df)
-        return df
+        table = self.relevance_criteria(df)
+        self.save_batch(table)
+        return table
     
 
 if __name__ == '__main__':
-    df = GetNewsApi()
-    df.run()
+    table = GetNewsApi()
+    table = table.run()
     
