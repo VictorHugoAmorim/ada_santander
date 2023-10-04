@@ -1,10 +1,28 @@
 ano,quantidade,mes_ano,quantidade,dia_mes_ano,quantidade,fonte,quantidade,autor,quantidade,ano,mes,dia,palavra_chave,quantidade
-2023.0,5.0,2023-09,5.0,2023-09-27,1.0,R7.com,2.0,Redação Terra Você,1.0,2023,9,27,sequenciamento,0
-,,,,2023-09-28,1.0,Terra.com.br,1.0,Do R7,1.0,2023,9,28,sequenciamento,0
-,,,,2023-09-29,3.0,Catracalivre.com.br,1.0,Da Agência Brasil,1.0,2023,9,29,sequenciamento,0
-,,,,,,Megacurioso.com.br,1.0,Redação,1.0,2023,9,27,terapia,0
-,,,,,,,,Pedro Freitas,1.0,2023,9,28,terapia,0
-,,,,,,,,,,2023,9,29,terapia,0
-,,,,,,,,,,2023,9,27,doença,1
-,,,,,,,,,,2023,9,28,doença,1
-,,,,,,,,,,2023,9,29,doença,2
+2023.0,9.0,2023-09,8.0,2023-09-13,1.0,Terra.com.br,2.0,desconhecido,3.0,2023,9,13,terapia,0
+,,2023-10,1.0,2023-09-14,1.0,Metropoles.com,2.0,Redação,2.0,2023,9,14,terapia,0
+,,,,2023-09-19,1.0,Globo,2.0,Saúde em Dia,1.0,2023,9,19,terapia,0
+,,,,2023-09-22,1.0,Uol.com.br,1.0,Bethânia Nunes,1.0,2023,9,22,terapia,0
+,,,,2023-09-23,1.0,Abril.com.br,1.0,Estadão Conteúdo,1.0,2023,9,23,terapia,0
+,,,,2023-09-25,1.0,Catracalivre.com.br,1.0,Samara Schwingel,1.0,2023,9,25,terapia,0
+,,,,2023-09-29,1.0,,,,,2023,9,29,terapia,0
+,,,,2023-09-30,1.0,,,,,2023,9,30,terapia,0
+,,,,2023-10-02,1.0,,,,,2023,10,2,terapia,0
+,,,,,,,,,,2023,9,13,sequenciamento,0
+,,,,,,,,,,2023,9,14,sequenciamento,0
+,,,,,,,,,,2023,9,19,sequenciamento,0
+,,,,,,,,,,2023,9,22,sequenciamento,0
+,,,,,,,,,,2023,9,23,sequenciamento,0
+,,,,,,,,,,2023,9,25,sequenciamento,0
+,,,,,,,,,,2023,9,29,sequenciamento,0
+,,,,,,,,,,2023,9,30,sequenciamento,0
+,,,,,,,,,,2023,10,2,sequenciamento,0
+,,,,,,,,,,2023,9,13,doença,0
+,,,,,,,,,,2023,9,14,doença,0
+,,,,,,,,,,2023,9,19,doença,0
+,,,,,,,,,,2023,9,22,doença,0
+,,,,,,,,,,2023,9,23,doença,0
+,,,,,,,,,,2023,9,25,doença,0
+,,,,,,,,,,2023,9,29,doença,0
+,,,,,,,,,,2023,9,30,doença,0
+,,,,,,,,,,2023,10,2,doença,1
