@@ -1,0 +1,4 @@
+Please, get the full datasets in this link http://insideairbnb.com/get-the-data, search for "Rio de Janeiro"
+- listing.csv
+- calendar.csv
+- review.csv
