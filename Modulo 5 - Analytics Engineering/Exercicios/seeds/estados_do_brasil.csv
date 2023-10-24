@@ -1,0 +1,28 @@
+id,descricao,uf,regiao
+1,Rio Grande do Sul,RS,1
+2,Santa Catarina,SC,1
+3,Paraná,PR,1
+4,São Paulo,SP,2
+5,Rio de Janeiro,RJ,2
+6,Minas Gerais,MG,2
+7,Espírito Santo,ES,2
+8,Mato Grosso do Sul,MS,3
+9,Mato Grosso,MT,3
+10,Goiás,GO,3
+11,Distrito Federal,DF,3
+12,Tocantins,TO,4
+13,Amazonas,AM,4
+14,Roraima,RR,4
+15,Rondônia,RO,4
+16,Acre,AC,4
+17,Amapá,AP,4
+18,Pará,PA,4
+19,Maranhão,MA,5
+20,Rio Grande do Norte,RN,5
+21,Ceará,CE,5
+22,Pernambuco,PE,5
+23,Alagoas,AL,5
+24,Sergipe,SE,5
+25,Bahia,BA,5
+26,Piauí,PI,5
+27,Paraíba,PB,5

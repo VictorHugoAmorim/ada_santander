@@ -1,0 +1,30 @@
+version: 2
+
+
+models:
+  - name: vw_exercicio_01_aula_05
+    description: "Modelo referente a view que foi criada no exercício 01 da Aula 05"
+    columns:
+      - name: id_registro
+        description: "Chave Primária da Tabela contendo um hash MD5 gerado pela surrogate_key"
+        tests:
+          - not_null
+      - name: cidade
+        description: "Nome da cidade da coleta de dados de combustíveis"
+        tests:
+          - not_null
+      - name: produto
+        description: "Tipo de produto Etanol ou Gasolina"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["GASOLINA", "ETANOL", "GASOLINA ADITIVADA", "DIESEL", "GNV"] # Estes valores podem ser de qualquer tipo de dados, Inteiro, Booleano, Float, Texto, ETC
+      - name: valor_revenda
+        description: "Valor da Revenda do Produto"
+        tests:
+          - not_null
+      - name: data_coleta
+        description: "Data da Coleta dos Preços"
+        tests:
+          - not_null
+

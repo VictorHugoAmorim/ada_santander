@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: tb_combustiveis_agregados
+    description: "Tabela contendo dados agregados de combustiveis de três capitais brasileiras, agregação por média de preços"
+    columns:
+      - name: id
+        description: "Coluna da chave primária da tabela"
+        tests:
+          - not_null
+          - unique
+      - name: municipio
+        description: "Coluna contendo o nome do município"
+        tests:
+          - not_null
+      - name: sigla_estado
+        description: "Coluna contendo a sigla da UF (Unidade Federativa) do estado"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['SP', 'GO', 'CE']
+      - name: media
+        description: "Cálculo da média de valores de combustíveis diante da série histórica para os estados e municípios selecionados"
